@@ -2,7 +2,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using CloudTrader.Api.Models;
 using Microsoft.IdentityModel.Tokens;
 
 namespace CloudTrader.Api.Services
@@ -11,7 +10,7 @@ namespace CloudTrader.Api.Services
     {
         void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt);
 
-        bool VerifyPasswordHash(UserModel user, string password);
+        bool VerifyPassword(string password, byte[] passwordHash, byte[] passwordSalt);
 
         string GenerateToken(int userID);
     }
@@ -21,7 +20,7 @@ namespace CloudTrader.Api.Services
         public void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             if (password == null) throw new ArgumentNullException(nameof(password));
-            if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace only string.", nameof(password));
+            if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace-only string.", nameof(password));
 
             using (var hmac = new System.Security.Cryptography.HMACSHA512())
             {
@@ -30,19 +29,19 @@ namespace CloudTrader.Api.Services
             }
         }
 
-        public bool VerifyPasswordHash(UserModel user, string password)
+        public bool VerifyPassword(string password, byte[] passwordHash, byte[] passwordSalt)
         {
             if (password == null) throw new ArgumentNullException(nameof(password));
-            if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace only string.", "password");
-            if (user.PasswordHash.Length != 64) throw new ArgumentException("Invalid length of password hash (64 bytes expected).", "passwordHash");
-            if (user.PasswordSalt.Length != 128) throw new ArgumentException("Invalid length of password salt (128 bytes expected).", "passwordHash");
+            if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace-only string.", nameof(password));
+            if (passwordHash.Length != 64) throw new ArgumentException("Invalid length of password hash (64 bytes expected).", nameof(passwordHash));
+            if (passwordSalt.Length != 128) throw new ArgumentException("Invalid length of password salt (128 bytes expected).", nameof(passwordSalt));
 
-            using (var hmac = new System.Security.Cryptography.HMACSHA512(user.PasswordSalt))
+            using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
             {
                 var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
                 for (int i = 0; i < computedHash.Length; i++)
                 {
-                    if (computedHash[i] != user.PasswordHash[i]) return false;
+                    if (computedHash[i] != passwordHash[i]) return false;
                 }
             }
 
@@ -52,6 +51,7 @@ namespace CloudTrader.Api.Services
         public string GenerateToken(int userID)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
+            // TODO Store token key in secrets
             var key = Encoding.ASCII.GetBytes("SOMESECRETTHATSHOULDNOTBEHARDCODEDFORVERIFYINGAUTHENTICITYOFJWTTOKENS");
             var tokenDescriptor = new SecurityTokenDescriptor
             {

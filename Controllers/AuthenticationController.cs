@@ -57,7 +57,7 @@ namespace CloudTrader.Api.Controllers
                 return BadRequest("Username or password is incorrect");
             }
 
-            var authenticated = _authenticationService.VerifyPasswordHash(user, model.Password);
+            var authenticated = _authenticationService.VerifyPassword(model.Password, user.PasswordHash, user.PasswordSalt);
             if (!authenticated)
             {
                 return BadRequest("Username or password is incorrect");
