@@ -1,12 +1,10 @@
 ﻿using System.Threading.Tasks;
 using CloudTrader.Api.Models;
 using CloudTrader.Api.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CloudTrader.Api.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class AuthenticationController : Controller
@@ -21,13 +19,6 @@ namespace CloudTrader.Api.Controllers
             _userService = userService;
         }
 
-        [HttpGet]
-        public ActionResult Index()
-        {
-            return Ok();
-        }
-
-        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<ActionResult> Register(AuthenticationModel model)
         {
@@ -57,7 +48,6 @@ namespace CloudTrader.Api.Controllers
             });
         }
 
-        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<ActionResult> Login(AuthenticationModel model)
         {
