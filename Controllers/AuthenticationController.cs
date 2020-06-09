@@ -1,4 +1,5 @@
-﻿using CloudTrader.Api.Models;
+﻿using System.Threading.Tasks;
+using CloudTrader.Api.Models;
 using CloudTrader.Api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,9 +13,12 @@ namespace CloudTrader.Api.Controllers
     {
         private IAuthenticationService _authenticationService;
 
-        public AuthenticationController(IAuthenticationService authenticationService)
+        private IUserService _userService;
+
+        public AuthenticationController(IAuthenticationService authenticationService, IUserService userService)
         {
             _authenticationService = authenticationService;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -25,17 +29,17 @@ namespace CloudTrader.Api.Controllers
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public ActionResult Register(AuthenticationModel model)
+        public async Task<ActionResult> Register(AuthenticationModel model)
         {
             byte[] passwordHash, passwordSalt;
             _authenticationService.CreatePasswordHash(model.Password, out passwordHash, out passwordSalt);
 
-            var user = new UserModel
+            var user = await _userService.Create(new UserModel
             {
                 Username = model.Username,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt
-            };
+            });
 
             string token = _authenticationService.GenerateToken(user.ID);
 
