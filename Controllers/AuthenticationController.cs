@@ -1,9 +1,11 @@
 ﻿using CloudTrader.Api.Models;
 using CloudTrader.Api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CloudTrader.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class AuthenticationController : Controller
@@ -15,6 +17,13 @@ namespace CloudTrader.Api.Controllers
             _authenticationService = authenticationService;
         }
 
+        [HttpGet]
+        public ActionResult Index()
+        {
+            return Ok();
+        }
+
+        [AllowAnonymous]
         [HttpPost("register")]
         public ActionResult Register(AuthenticationModel model)
         {
