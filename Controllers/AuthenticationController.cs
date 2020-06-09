@@ -22,14 +22,14 @@ namespace CloudTrader.Api.Controllers
         [HttpPost("register")]
         public async Task<ActionResult> Register(AuthenticationModel authModel)
         {
-            byte[] passwordHash, passwordSalt;
-            _authenticationService.CreatePasswordHash(authModel.Password, out passwordHash, out passwordSalt);
-
             var existingUser = await _userService.GetByUsername(authModel.Username);
             if (existingUser != null)
             {
                 return BadRequest("Username \"" + authModel.Username + "\" is already taken");
             }
+
+            byte[] passwordHash, passwordSalt;
+            _authenticationService.CreatePasswordHash(authModel.Password, out passwordHash, out passwordSalt);
 
             var user = await _userService.Create(new UserModel
             {
