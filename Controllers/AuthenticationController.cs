@@ -20,20 +20,20 @@ namespace CloudTrader.Api.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult> Register(AuthenticationModel model)
+        public async Task<ActionResult> Register(AuthenticationModel authModel)
         {
             byte[] passwordHash, passwordSalt;
-            _authenticationService.CreatePasswordHash(model.Password, out passwordHash, out passwordSalt);
+            _authenticationService.CreatePasswordHash(authModel.Password, out passwordHash, out passwordSalt);
 
-            var existingUser = await _userService.GetByUsername(model.Username);
+            var existingUser = await _userService.GetByUsername(authModel.Username);
             if (existingUser != null)
             {
-                return BadRequest("Username \"" + model.Username + "\" is already taken");
+                return BadRequest("Username \"" + authModel.Username + "\" is already taken");
             }
 
             var user = await _userService.Create(new UserModel
             {
-                Username = model.Username,
+                Username = authModel.Username,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt
             });
@@ -49,15 +49,15 @@ namespace CloudTrader.Api.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult> Login(AuthenticationModel model)
+        public async Task<ActionResult> Login(AuthenticationModel authModel)
         {
-            var user = await _userService.GetByUsername(model.Username);
+            var user = await _userService.GetByUsername(authModel.Username);
             if (user == null)
             {
                 return BadRequest("Username or password is incorrect");
             }
 
-            var authenticated = _authenticationService.VerifyPassword(model.Password, user.PasswordHash, user.PasswordSalt);
+            var authenticated = _authenticationService.VerifyPassword(authModel.Password, user.PasswordHash, user.PasswordSalt);
             if (!authenticated)
             {
                 return BadRequest("Username or password is incorrect");
