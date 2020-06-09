@@ -33,16 +33,12 @@ namespace CloudTrader.Api.Services
 
         public async Task<UserModel> GetById(int id)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(x => x.Id == id);
-
-            return user;
+            return await _context.Users.SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<UserModel> GetByUsername(string username)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(x => x.Username == username);
-
-            return user;
+            return await _context.Users.SingleOrDefaultAsync(x => x.Username == username);
         }
     }
 }
