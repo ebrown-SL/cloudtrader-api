@@ -38,11 +38,11 @@ namespace CloudTrader.Api.Controllers
                 PasswordSalt = passwordSalt
             });
 
-            string token = _authenticationService.GenerateToken(user.ID);
+            string token = _authenticationService.GenerateToken(user.Id);
 
             return Ok(new
             {
-                user.ID,
+                user.Id,
                 user.Username,
                 token
             });
@@ -63,11 +63,11 @@ namespace CloudTrader.Api.Controllers
                 return BadRequest("Username or password is incorrect");
             }
 
-            string token = _authenticationService.GenerateToken(user.ID);
+            string token = _authenticationService.GenerateToken(user.Id);
 
             return Ok(new
             {
-                user.ID,
+                user.Id,
                 user.Username,
                 token
             });
