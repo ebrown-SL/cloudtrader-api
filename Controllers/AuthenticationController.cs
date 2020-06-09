@@ -25,7 +25,7 @@ namespace CloudTrader.Api.Controllers
             var existingUser = await _userService.GetByUsername(authModel.Username);
             if (existingUser != null)
             {
-                return BadRequest("Username \"" + authModel.Username + "\" is already taken");
+                return Conflict("Username \"" + authModel.Username + "\" is already taken");
             }
 
             byte[] passwordHash, passwordSalt;
