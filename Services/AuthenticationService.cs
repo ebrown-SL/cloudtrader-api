@@ -2,6 +2,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace CloudTrader.Api.Services
@@ -17,6 +18,13 @@ namespace CloudTrader.Api.Services
 
     public class AuthenticationService : IAuthenticationService
     {
+        private readonly IConfiguration _configuration;
+
+        public AuthenticationService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             if (password == null) throw new ArgumentNullException(nameof(password));
@@ -51,8 +59,7 @@ namespace CloudTrader.Api.Services
         public string GenerateToken(int userID)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            // TODO Store token key in secrets
-            var key = Encoding.ASCII.GetBytes("SOMESECRETTHATSHOULDNOTBEHARDCODEDFORVERIFYINGAUTHENTICITYOFJWTTOKENS");
+            var key = Encoding.ASCII.GetBytes(_configuration["JWT_KEY"]);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]

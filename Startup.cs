@@ -31,7 +31,7 @@ namespace CloudTrader.Api
             services.AddSingleton<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IUserService, UserService>();
 
-            var key = Encoding.ASCII.GetBytes("SOMESECRETTHATSHOULDNOTBEHARDCODEDFORVERIFYINGAUTHENTICITYOFJWTTOKENS");
+            var key = Encoding.ASCII.GetBytes(Configuration["JWT_KEY"]);
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
