@@ -9,6 +9,8 @@ namespace CloudTrader.Api.Services
     {
         Task<UserModel> Create(UserModel user);
 
+        Task<UserModel> GetById(int id);
+
         Task<UserModel> GetByUsername(string username);
     }
 
@@ -25,6 +27,13 @@ namespace CloudTrader.Api.Services
         {
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
+
+            return user;
+        }
+
+        public async Task<UserModel> GetById(int id)
+        {
+            var user = await _context.Users.SingleOrDefaultAsync(x => x.Id == id);
 
             return user;
         }

@@ -1,4 +1,5 @@
 using System.Text;
+using System.Threading.Tasks;
 using CloudTrader.Api.Helpers;
 using CloudTrader.Api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -38,6 +39,20 @@ namespace CloudTrader.Api
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(x =>
             {
+                x.Events = new JwtBearerEvents
+                {
+                    OnTokenValidated = context =>
+                    {
+                        var userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
+                        var userId = int.Parse(context.Principal.Identity.Name);
+                        var user = userService.GetById(userId);
+                        if (user == null)
+                        {
+                            context.Fail("Unauthorized");
+                        }
+                        return Task.CompletedTask;
+                    }
+                };
                 x.RequireHttpsMetadata = true;
                 x.SaveToken = true;
                 x.TokenValidationParameters = new TokenValidationParameters
