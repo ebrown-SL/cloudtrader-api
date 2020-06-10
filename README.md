@@ -1,20 +1,23 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# cloudtrader-api
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+External-facing gateway API for the CloudTrader project.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+## Running locally with Visual Studio
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+Open the project from the solution file, and use the run button, and access the api at `https://localhost:5000`
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+## Running unit tests
+
+Run `dotnet test`
+
+## Running with docker
+
+Build the image
+
+`docker build . -t cloudtrader-api:latest`
+
+Start the container
+
+`docker run -p 5000:80 cloudtrader-api:latest`
+
+Access the api at `http://localhost:5000`
