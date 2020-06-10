@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <Folder Include="Services\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CloudTrader.Api\CloudTrader.Api.csproj" />
