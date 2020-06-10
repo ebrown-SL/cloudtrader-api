@@ -1,11 +1,11 @@
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using CloudTrader.Api.Helpers;
-using CloudTrader.Api.Services;
 using CloudTrader.Api.Models;
+using CloudTrader.Api.Services;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-using System;
 
 namespace CloudTrader.Api.Tests
 {
