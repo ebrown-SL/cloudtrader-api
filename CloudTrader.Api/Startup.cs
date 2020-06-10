@@ -75,6 +75,12 @@ namespace CloudTrader.Api
                 app.UseExceptionHandler("/error");
             }
 
+            app.UseCors(builder => {
+                builder.AllowAnyOrigin();
+                builder.AllowAnyMethod();
+                builder.AllowAnyHeader();
+            });
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
