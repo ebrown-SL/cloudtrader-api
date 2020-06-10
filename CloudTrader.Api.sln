@@ -1,7 +1,7 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudTrader.Api", "CloudTrader.Api.csproj", "{AC10BD8F-98ED-4E57-B8E2-585BD74AFD82}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudTrader.Api", "CloudTrader.Api\CloudTrader.Api.csproj", "{9FBEFF5D-DB13-4ADC-A486-A93740A6B716}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,9 +9,9 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AC10BD8F-98ED-4E57-B8E2-585BD74AFD82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AC10BD8F-98ED-4E57-B8E2-585BD74AFD82}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AC10BD8F-98ED-4E57-B8E2-585BD74AFD82}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AC10BD8F-98ED-4E57-B8E2-585BD74AFD82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FBEFF5D-DB13-4ADC-A486-A93740A6B716}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FBEFF5D-DB13-4ADC-A486-A93740A6B716}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FBEFF5D-DB13-4ADC-A486-A93740A6B716}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FBEFF5D-DB13-4ADC-A486-A93740A6B716}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
