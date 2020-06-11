@@ -4,7 +4,7 @@ External-facing gateway API for the CloudTrader project.
 
 ## Running locally with Visual Studio
 
-Open the project from the solution file, run, and access the api at `https://localhost:5000`.
+Open the project from the solution file, run, and access the api at `https://localhost:5001`.
 
 In development mode the `JWT_KEY` variable should be set in the user secrets which will be used to generate and verify JWT tokens. The key can be anything but will fail if less than 16 characters.
 
