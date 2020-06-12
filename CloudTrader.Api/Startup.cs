@@ -1,5 +1,6 @@
 using System.Text;
 using System.Threading.Tasks;
+using CloudTrader.Api.Exceptions;
 using CloudTrader.Api.Helpers;
 using CloudTrader.Api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -24,6 +25,12 @@ namespace CloudTrader.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new UsernameAlreadyExistsExceptionFilter());
+                options.Filters.Add(new UserNotFoundExceptionFilter());
+            });
+
             services.AddDbContext<DataContext>(options => options.UseInMemoryDatabase(databaseName: "Users"));
 
             services.AddControllers();
@@ -44,7 +51,7 @@ namespace CloudTrader.Api
                     {
                         var userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
                         var userId = int.Parse(context.Principal.Identity.Name);
-                        var user = userService.GetById(userId);
+                        var user = userService.GetUser(userId);
                         if (user == null)
                         {
                             context.Fail("Unauthorized");

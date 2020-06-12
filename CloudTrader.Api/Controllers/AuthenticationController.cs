@@ -22,23 +22,9 @@ namespace CloudTrader.Api.Controllers
         [HttpPost("register")]
         public async Task<ActionResult> Register(AuthenticationModel authModel)
         {
-            var existingUser = await _userService.GetByUsername(authModel.Username);
-            if (existingUser != null)
-            {
-                return Conflict("Username \"" + authModel.Username + "\" is already taken");
-            }
+            var user = await _userService.CreateUser(authModel.Username, authModel.Password);
 
-            byte[] passwordHash, passwordSalt;
-            _authenticationService.CreatePasswordHash(authModel.Password, out passwordHash, out passwordSalt);
-
-            var user = await _userService.Create(new UserModel
-            {
-                Username = authModel.Username,
-                PasswordHash = passwordHash,
-                PasswordSalt = passwordSalt
-            });
-
-            string token = _authenticationService.GenerateToken(user.Id);
+            var token = _authenticationService.GenerateToken(user.Id);
 
             return Ok(new
             {
@@ -51,19 +37,15 @@ namespace CloudTrader.Api.Controllers
         [HttpPost("login")]
         public async Task<ActionResult> Login(AuthenticationModel authModel)
         {
-            var user = await _userService.GetByUsername(authModel.Username);
-            if (user == null)
-            {
-                return BadRequest("Username or password is incorrect");
-            }
+            var user = await _userService.GetUser(authModel.Username);
 
             var verifiedPassword = _authenticationService.VerifyPassword(authModel.Password, user.PasswordHash, user.PasswordSalt);
             if (!verifiedPassword)
             {
-                return BadRequest("Username or password is incorrect");
+                return Unauthorized("Username or password is incorrect");
             }
 
-            string token = _authenticationService.GenerateToken(user.Id);
+            var token = _authenticationService.GenerateToken(user.Id);
 
             return Ok(new
             {
