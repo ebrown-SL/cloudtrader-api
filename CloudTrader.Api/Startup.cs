@@ -27,8 +27,7 @@ namespace CloudTrader.Api
         {
             services.AddMvc(options =>
             {
-                options.Filters.Add(new UsernameAlreadyExistsExceptionFilter());
-                options.Filters.Add(new UserNotFoundExceptionFilter());
+                options.Filters.Add(new GlobalExceptionFilter());
             });
 
             services.AddDbContext<DataContext>(options => options.UseInMemoryDatabase(databaseName: "Users"));
@@ -76,10 +75,6 @@ namespace CloudTrader.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/error");
             }
 
             app.UseCors(builder => {
