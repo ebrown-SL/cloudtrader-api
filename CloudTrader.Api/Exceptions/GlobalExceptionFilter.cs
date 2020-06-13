@@ -21,6 +21,12 @@ namespace CloudTrader.Api.Exceptions
                 return;
             }
 
+            if (exceptionType == typeof(UnauthorizedException))
+            {
+                context.Result = new UnauthorizedObjectResult(context.Exception.Message);
+                return;
+            }
+
             context.Result = new StatusCodeResult(500);
         }
     }
