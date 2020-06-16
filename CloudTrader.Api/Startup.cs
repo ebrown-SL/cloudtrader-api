@@ -34,9 +34,15 @@ namespace CloudTrader.Api
 
             services.AddControllers();
 
-            services.AddSingleton<IAuthenticationService, AuthenticationService>();
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
+            services.AddScoped<IRegisterService, RegisterService>();
+            services.AddScoped<ILoginService, LoginService>();
+
+            services.AddSingleton<ITokenGenerator, JwtTokenGenerator>();
+            services.AddSingleton<IPasswordUtils, PasswordUtils>();
+
+            // TODO - Move into separate method?
             var key = Encoding.ASCII.GetBytes(Configuration["JWT_KEY"]);
             services.AddAuthentication(x =>
             {
@@ -46,15 +52,19 @@ namespace CloudTrader.Api
             {
                 x.Events = new JwtBearerEvents
                 {
+                    // TODO - Does this get called correctly
                     OnTokenValidated = context =>
                     {
-                        var userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
                         var userId = int.Parse(context.Principal.Identity.Name);
-                        var user = userService.GetUser(userId);
+
+                        var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
+                        var user = userRepository.GetUser(userId);
                         if (user == null)
                         {
-                            context.Fail("Unauthorized");
+                            //context.Fail("Unauthorized");
+                            throw new UnauthorizedException();
                         }
+
                         return Task.CompletedTask;
                     }
                 };

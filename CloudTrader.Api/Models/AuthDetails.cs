@@ -2,12 +2,15 @@
 
 namespace CloudTrader.Api.Models
 {
-    public class AuthenticationModel
+    public class AuthDetails
     {
+        [Required]
+        public int Id { get; set; }
+
         [Required]
         public string Username { get; set; }
 
         [Required]
-        public string Password { get; set; }
+        public string Token { get; set; }
     }
 }

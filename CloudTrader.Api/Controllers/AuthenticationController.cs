@@ -9,50 +9,30 @@ namespace CloudTrader.Api.Controllers
     [Route("[controller]")]
     public class AuthenticationController : Controller
     {
-        private IAuthenticationService _authenticationService;
+        private readonly IRegisterService _registrationService;
 
-        private IUserService _userService;
+        private readonly ILoginService _loginService;
 
-        public AuthenticationController(IAuthenticationService authenticationService, IUserService userService)
+        public AuthenticationController(IRegisterService registrationService, ILoginService loginService)
         {
-            _authenticationService = authenticationService;
-            _userService = userService;
+            _registrationService = registrationService;
+            _loginService = loginService;
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult> Register(AuthenticationModel authModel)
+        public async Task<ActionResult> Register(Credentials credentials)
         {
-            var user = await _userService.CreateUser(authModel.Username, authModel.Password);
+            var authDetails = await _registrationService.Register(credentials.Username, credentials.Password);
 
-            var token = _authenticationService.GenerateToken(user.Id);
-
-            return Ok(new
-            {
-                user.Id,
-                user.Username,
-                token
-            });
+            return Ok(authDetails);
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult> Login(AuthenticationModel authModel)
-        {
-            var user = await _userService.GetUser(authModel.Username);
+        public async Task<ActionResult> Login(Credentials credentials)
+        {         
+            var authDetails = await _loginService.Login(credentials.Username, credentials.Password);
 
-            var verifiedPassword = _authenticationService.VerifyPassword(authModel.Password, user.PasswordHash, user.PasswordSalt);
-            if (!verifiedPassword)
-            {
-                return Unauthorized("Username or password is incorrect");
-            }
-
-            var token = _authenticationService.GenerateToken(user.Id);
-
-            return Ok(new
-            {
-                user.Id,
-                user.Username,
-                token
-            });
+            return Ok(authDetails);
         }
     }
 }

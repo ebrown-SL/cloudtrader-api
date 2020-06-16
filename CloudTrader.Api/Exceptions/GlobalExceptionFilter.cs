@@ -7,27 +7,18 @@ namespace CloudTrader.Api.Exceptions
     {
         public void OnException(ExceptionContext context)
         {
-            var exceptionType = context.Exception.GetType();
-
-            if (exceptionType == typeof(UsernameAlreadyExistsException))
+            switch (context.Exception)
             {
-                context.Result = new ConflictObjectResult(context.Exception.Message);
-                return;
+                case UsernameAlreadyExistsException exception:
+                    context.Result = new ConflictObjectResult(exception.Message);
+                    break;
+                case UnauthorizedException exception:
+                    context.Result = new UnauthorizedObjectResult(exception.Message);
+                    break;
+                default:
+                    context.Result = new StatusCodeResult(500);
+                    break;
             }
-
-            if (exceptionType == typeof(UserNotFoundException))
-            {
-                context.Result = new NotFoundObjectResult(context.Exception.Message);
-                return;
-            }
-
-            if (exceptionType == typeof(UnauthorizedException))
-            {
-                context.Result = new UnauthorizedObjectResult(context.Exception.Message);
-                return;
-            }
-
-            context.Result = new StatusCodeResult(500);
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace CloudTrader.Api.Models
 {
-    public class UserModel
+    public class User
     {
         [Key]
         public int Id { get; set; }

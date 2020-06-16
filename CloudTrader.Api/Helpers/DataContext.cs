@@ -10,6 +10,6 @@ namespace CloudTrader.Api.Helpers
         {
         }
 
-        public DbSet<UserModel> Users { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
