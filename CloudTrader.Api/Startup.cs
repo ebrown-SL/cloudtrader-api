@@ -1,5 +1,4 @@
 using System.Text;
-using System.Threading.Tasks;
 using CloudTrader.Api.Exceptions;
 using CloudTrader.Api.Helpers;
 using CloudTrader.Api.Models;
@@ -47,7 +46,6 @@ namespace CloudTrader.Api
             services.AddSingleton<ITokenGenerator, JwtTokenGenerator>();
             services.AddSingleton<IPasswordUtils, PasswordUtils>();
 
-            // TODO - Move into separate method?
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -56,20 +54,15 @@ namespace CloudTrader.Api
             {
                 x.Events = new JwtBearerEvents
                 {
-                    // TODO - Does this get called correctly
-                    OnTokenValidated = context =>
+                    OnTokenValidated = async context =>
                     {
                         var userId = int.Parse(context.Principal.Identity.Name);
-
                         var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
-                        var user = userRepository.GetUser(userId);
+                        var user = await userRepository.GetUser(userId);
                         if (user == null)
                         {
-                            //context.Fail("Unauthorized");
-                            throw new UnauthorizedException();
+                            context.Fail("Unauthorized");
                         }
-
-                        return Task.CompletedTask;
                     }
                 };
                 x.RequireHttpsMetadata = true;
