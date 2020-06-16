@@ -5,15 +5,16 @@ using NUnit.Framework;
 
 namespace CloudTrader.Api.Tests.Models
 {
-    public class AuthenticationModelTests
+    public class CredentialsTests
     {
 
         [TestCase(null)]
         [TestCase("")]
         [TestCase("   ")]
-        public void AuthenticationModel_WithEmptyUsername_IsInvalid(string username)
+        public void Credentials_WithEmptyUsername_IsInvalid(string username)
         {
-            var user = new AuthenticationModel
+            var user = new Credentials
+
             {
                 Username = username,
                 Password = "password"
@@ -28,9 +29,10 @@ namespace CloudTrader.Api.Tests.Models
         [TestCase(null)]
         [TestCase("")]
         [TestCase("   ")]
-        public void AuthenticationModel_WithEmptyPassword_IsInvalid(string password)
+        public void Credentials_WithEmptyPassword_IsInvalid(string password)
         {
-            var user = new AuthenticationModel
+            var user = new Credentials
+
             {
                 Username = "username",
                 Password = password
@@ -43,9 +45,10 @@ namespace CloudTrader.Api.Tests.Models
         }
 
         [Test]
-        public void AuthenticationModel_WithNonEmptyUsernameAndPassword_IsValid()
+        public void Credentials_WithNonEmptyUsernameAndPassword_IsValid()
         {
-            var user = new AuthenticationModel
+            var user = new Credentials
+
             {
                 Username = "username",
                 Password = "password"
