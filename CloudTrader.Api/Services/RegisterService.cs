@@ -43,8 +43,6 @@ namespace CloudTrader.Api.Services
                 PasswordSalt = passwordSalt
             };
 
-            //await _traderService.CreateTrader(user.Id);
-
             await _userRepository.SaveUser(user);
 
             var token = _tokenGenerator.GenerateToken(user.Id);
