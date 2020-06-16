@@ -21,7 +21,7 @@ namespace CloudTrader.Api.Tests.Models
             };
 
             var validationResults = new List<ValidationResult>();
-            var isValid = Validator.TryValidateObject(user, new ValidationContext(user), validationResults);
+            var isValid = Validator.TryValidateObject(user, new ValidationContext(user), validationResults, true);
 
             Assert.False(isValid);
         }
@@ -39,7 +39,7 @@ namespace CloudTrader.Api.Tests.Models
             };
 
             var validationResults = new List<ValidationResult>();
-            var isValid = Validator.TryValidateObject(user, new ValidationContext(user), validationResults);
+            var isValid = Validator.TryValidateObject(user, new ValidationContext(user), validationResults, true);
 
             Assert.False(isValid);
         }
@@ -55,7 +55,7 @@ namespace CloudTrader.Api.Tests.Models
             };
 
             var validationResults = new List<ValidationResult>();
-            var isValid = Validator.TryValidateObject(user, new ValidationContext(user), validationResults);
+            var isValid = Validator.TryValidateObject(user, new ValidationContext(user), validationResults, true);
 
             Assert.True(isValid);
         }
