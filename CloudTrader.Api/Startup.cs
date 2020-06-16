@@ -2,6 +2,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CloudTrader.Api.Exceptions;
 using CloudTrader.Api.Helpers;
+using CloudTrader.Api.Models;
 using CloudTrader.Api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -25,6 +26,10 @@ namespace CloudTrader.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddOptions<JwtTokenOptions>()
+                .Bind(Configuration.GetSection(nameof(JwtTokenOptions)))
+                .ValidateDataAnnotations();
+
             services.AddMvc(options =>
             {
                 options.Filters.Add(new GlobalExceptionFilter());
@@ -43,7 +48,6 @@ namespace CloudTrader.Api
             services.AddSingleton<IPasswordUtils, PasswordUtils>();
 
             // TODO - Move into separate method?
-            var key = Encoding.ASCII.GetBytes(Configuration["JWT_KEY"]);
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -70,6 +74,8 @@ namespace CloudTrader.Api
                 };
                 x.RequireHttpsMetadata = true;
                 x.SaveToken = true;
+
+                var key = Encoding.ASCII.GetBytes(Configuration.GetSection(nameof(JwtTokenOptions)).Get<JwtTokenOptions>().Key);
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,

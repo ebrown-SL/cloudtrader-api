@@ -2,7 +2,8 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.Extensions.Configuration;
+using CloudTrader.Api.Models;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace CloudTrader.Api.Helpers
@@ -14,18 +15,17 @@ namespace CloudTrader.Api.Helpers
 
     public class JwtTokenGenerator : ITokenGenerator
     {
-        private readonly IConfiguration _configuration;
+        private readonly JwtTokenOptions _options;
 
-        public JwtTokenGenerator(IConfiguration configuration)
+        public JwtTokenGenerator(IOptions<JwtTokenOptions> options)
         {
-            _configuration = configuration;
+            _options = options.Value;
         }
 
         public string GenerateToken(int id)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            // TODO - Change how reading from configuration
-            var key = Encoding.ASCII.GetBytes(_configuration["JWT_KEY"]);
+            var key = Encoding.ASCII.GetBytes(_options.Key);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
