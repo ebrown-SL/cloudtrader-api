@@ -2,6 +2,7 @@
 using CloudTrader.Api.Exceptions;
 using CloudTrader.Api.Helpers;
 using CloudTrader.Api.Models;
+using CloudTrader.Api.Repositories;
 
 namespace CloudTrader.Api.Services
 {

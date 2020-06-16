@@ -3,7 +3,7 @@ using CloudTrader.Api.Helpers;
 using CloudTrader.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CloudTrader.Api.Services
+namespace CloudTrader.Api.Repositories
 {
     public interface IUserRepository
     {
