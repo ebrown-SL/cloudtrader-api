@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using CloudTrader.Api.Models;
+using CloudTrader.Api.Service.Models;
 using NUnit.Framework;
 
-namespace CloudTrader.Api.Tests.Models
+namespace CloudTrader.Api.Service.Tests.Models
 {
     public class JwtTokenOptionsTests
     {

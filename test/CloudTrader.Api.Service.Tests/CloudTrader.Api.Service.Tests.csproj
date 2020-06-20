@@ -12,4 +12,10 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\CloudTrader.Api.Service\CloudTrader.Api.Service.csproj" />
+  </ItemGroup>
 </Project>
