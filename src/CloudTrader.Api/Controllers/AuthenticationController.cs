@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using CloudTrader.Api.Models;
 using CloudTrader.Api.Service.Interfaces;
-using CloudTrader.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CloudTrader.Api.Controllers

@@ -1,5 +1,6 @@
 ﻿using System;
-namespace CloudTrader.Api.Exceptions
+
+namespace CloudTrader.Api.Service.Exceptions
 {
     public class UnauthorizedException : Exception
     {

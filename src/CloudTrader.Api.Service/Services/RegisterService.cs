@@ -1,10 +1,9 @@
 ﻿using System.Threading.Tasks;
-using CloudTrader.Api.Exceptions;
-using CloudTrader.Api.Helpers;
+using CloudTrader.Api.Service.Exceptions;
 using CloudTrader.Api.Service.Interfaces;
 using CloudTrader.Api.Service.Models;
 
-namespace CloudTrader.Api.Services
+namespace CloudTrader.Api.Service.Services
 {
     public class RegisterService : IRegisterService
     {
