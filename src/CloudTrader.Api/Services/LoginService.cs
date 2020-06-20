@@ -6,11 +6,6 @@ using CloudTrader.Api.Service.Models;
 
 namespace CloudTrader.Api.Services
 {
-    public interface ILoginService
-    {
-        Task<AuthDetails> Login(string username, string password);
-    }
-
     public class LoginService : ILoginService
     {
         private readonly IUserRepository _userRepository;
