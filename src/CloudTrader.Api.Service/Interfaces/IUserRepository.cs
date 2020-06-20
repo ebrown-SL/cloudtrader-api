@@ -5,7 +5,7 @@ namespace CloudTrader.Api.Service.Interfaces
 {
     public interface IUserRepository
     {
-        Task SaveUser(User user);
+        Task<int> SaveUser(User user);
 
         Task<User> GetUser(int id);
 

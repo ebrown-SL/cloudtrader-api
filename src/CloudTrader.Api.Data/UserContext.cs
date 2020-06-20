@@ -1,5 +1,4 @@
-﻿using CloudTrader.Api.Service.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace CloudTrader.Api.Data
 {
@@ -10,6 +9,6 @@ namespace CloudTrader.Api.Data
         {
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<UserDbModel> Users { get; set; }
     }
 }

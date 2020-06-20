@@ -37,13 +37,13 @@ namespace CloudTrader.Api.Service.Services
                 PasswordSalt = passwordSalt
             };
 
-            await _userRepository.SaveUser(user);
+            var id = await _userRepository.SaveUser(user);
 
             var token = _tokenGenerator.GenerateToken(user.Id);
 
             return new AuthDetails
             {
-                Id = user.Id,
+                Id = id,
                 Username = user.Username,
                 Token = token
             };

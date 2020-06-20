@@ -1,4 +1,5 @@
 using System.Text;
+using AutoMapper;
 using CloudTrader.Api.Data;
 using CloudTrader.Api.Exceptions;
 using CloudTrader.Api.Service.Helpers;
@@ -34,6 +35,8 @@ namespace CloudTrader.Api
             {
                 options.Filters.Add(new GlobalExceptionFilter());
             });
+
+            services.AddAutoMapper(typeof(UserProfile));
 
             services.AddControllers();
 
