@@ -1,17 +1,11 @@
 ﻿using System.Threading.Tasks;
 using CloudTrader.Api.Exceptions;
 using CloudTrader.Api.Helpers;
-using CloudTrader.Api.Models;
 using CloudTrader.Api.Service.Interfaces;
 using CloudTrader.Api.Service.Models;
 
 namespace CloudTrader.Api.Services
 {
-    public interface IRegisterService
-    {
-        Task<AuthDetails> Register(string username, string password);
-    }
-
     public class RegisterService : IRegisterService
     {
         private readonly IUserRepository _userRepository;
