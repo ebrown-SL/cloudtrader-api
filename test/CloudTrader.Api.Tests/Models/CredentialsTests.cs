@@ -7,7 +7,6 @@ namespace CloudTrader.Api.Tests.Models
 {
     public class CredentialsTests
     {
-
         [TestCase(null)]
         [TestCase("")]
         [TestCase("   ")]
