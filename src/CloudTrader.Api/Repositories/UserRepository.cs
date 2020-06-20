@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using CloudTrader.Api.Helpers;
-using CloudTrader.Api.Models;
+using CloudTrader.Api.Service;
 using Microsoft.EntityFrameworkCore;
 
 namespace CloudTrader.Api.Repositories

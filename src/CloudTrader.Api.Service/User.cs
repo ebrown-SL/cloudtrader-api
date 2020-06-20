@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace CloudTrader.Api.Models
+namespace CloudTrader.Api.Service
 {
     public class User
     {

@@ -17,4 +17,9 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.4" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CloudTrader.Api.Service\CloudTrader.Api.Service.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
