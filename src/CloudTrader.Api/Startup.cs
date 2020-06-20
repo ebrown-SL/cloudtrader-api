@@ -1,7 +1,6 @@
 using System.Text;
+using CloudTrader.Api.Data;
 using CloudTrader.Api.Exceptions;
-using CloudTrader.Api.Helpers;
-using CloudTrader.Api.Repositories;
 using CloudTrader.Api.Service.Helpers;
 using CloudTrader.Api.Service.Interfaces;
 using CloudTrader.Api.Service.Models;
@@ -9,7 +8,6 @@ using CloudTrader.Api.Service.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -36,8 +34,6 @@ namespace CloudTrader.Api
             {
                 options.Filters.Add(new GlobalExceptionFilter());
             });
-
-            services.AddDbContext<DataContext>(options => options.UseInMemoryDatabase(databaseName: "Users"));
 
             services.AddControllers();
 

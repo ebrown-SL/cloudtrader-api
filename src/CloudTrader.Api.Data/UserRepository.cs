@@ -1,16 +1,15 @@
 ﻿using System.Threading.Tasks;
-using CloudTrader.Api.Helpers;
 using CloudTrader.Api.Service.Interfaces;
 using CloudTrader.Api.Service.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CloudTrader.Api.Repositories
+namespace CloudTrader.Api.Data
 {
     public class UserRepository : IUserRepository
     {
-        private readonly DataContext _context;
+        private readonly UserContext _context;
 
-        public UserRepository(DataContext context)
+        public UserRepository(UserContext context)
         {
             _context = context;
         }

@@ -1,11 +1,11 @@
 ﻿using CloudTrader.Api.Service.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CloudTrader.Api.Helpers
+namespace CloudTrader.Api.Data
 {
-    public class DataContext : DbContext
+    public class UserContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options)
+        public UserContext(DbContextOptions<UserContext> options)
             : base(options)
         {
         }
