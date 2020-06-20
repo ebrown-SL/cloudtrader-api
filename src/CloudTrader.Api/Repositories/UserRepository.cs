@@ -1,19 +1,11 @@
 ﻿using System.Threading.Tasks;
 using CloudTrader.Api.Helpers;
 using CloudTrader.Api.Service;
+using CloudTrader.Api.Service.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace CloudTrader.Api.Repositories
 {
-    public interface IUserRepository
-    {
-        Task SaveUser(User user);
-
-        Task<User> GetUser(int id);
-
-        Task<User> GetUser(string username);
-    }
-
     public class UserRepository : IUserRepository
     {
         private readonly DataContext _context;
