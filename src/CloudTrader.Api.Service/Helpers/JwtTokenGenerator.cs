@@ -2,17 +2,13 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using CloudTrader.Api.Models;
+using CloudTrader.Api.Service.Interfaces;
+using CloudTrader.Api.Service.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace CloudTrader.Api.Helpers
+namespace CloudTrader.Api.Service.Helpers
 {
-    public interface ITokenGenerator
-    {
-        string GenerateToken(int id);
-    }
-
     public class JwtTokenGenerator : ITokenGenerator
     {
         private readonly JwtTokenOptions _options;

@@ -1,14 +1,8 @@
 ﻿using System.Text;
+using CloudTrader.Api.Service.Interfaces;
 
-namespace CloudTrader.Api.Helpers
+namespace CloudTrader.Api.Service.Helpers
 {
-    public interface IPasswordUtils
-    {
-        (byte[] passwordHash, byte[] passwordSalt) CreatePasswordHash(string password);
-
-        bool VerifyPassword(string password, byte[] passwordHash, byte[] passwordSalt);
-    }
-
     public class PasswordUtils : IPasswordUtils
     {
         public (byte[] passwordHash, byte[] passwordSalt) CreatePasswordHash(string password)
