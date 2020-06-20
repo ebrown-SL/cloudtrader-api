@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{13A9A6CC-B87
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{349CCB9E-D16C-4E3A-B5B5-570C6AE5346A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudTrader.Api.Service", "src\CloudTrader.Api.Service\CloudTrader.Api.Service.csproj", "{BA52CBF4-F8FD-4BE6-BD0D-92BD29437F1D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,9 +25,14 @@ Global
 		{2F86BC33-FC75-4BE3-95D1-5629BAFF90B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F86BC33-FC75-4BE3-95D1-5629BAFF90B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F86BC33-FC75-4BE3-95D1-5629BAFF90B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA52CBF4-F8FD-4BE6-BD0D-92BD29437F1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA52CBF4-F8FD-4BE6-BD0D-92BD29437F1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA52CBF4-F8FD-4BE6-BD0D-92BD29437F1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA52CBF4-F8FD-4BE6-BD0D-92BD29437F1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BC9C1894-B43C-4612-9A46-FF30D94B6602} = {13A9A6CC-B873-4131-9485-3D71BD79EC35}
 		{2F86BC33-FC75-4BE3-95D1-5629BAFF90B9} = {349CCB9E-D16C-4E3A-B5B5-570C6AE5346A}
+		{BA52CBF4-F8FD-4BE6-BD0D-92BD29437F1D} = {13A9A6CC-B873-4131-9485-3D71BD79EC35}
 	EndGlobalSection
 EndGlobal
