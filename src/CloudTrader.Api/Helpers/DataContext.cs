@@ -1,4 +1,4 @@
-﻿using CloudTrader.Api.Service;
+﻿using CloudTrader.Api.Service.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CloudTrader.Api.Helpers
