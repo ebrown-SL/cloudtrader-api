@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using CloudTrader.Api.Exceptions;
-using CloudTrader.Api.Helpers;
-using CloudTrader.Api.Models;
-using CloudTrader.Api.Repositories;
-using CloudTrader.Api.Services;
+using CloudTrader.Api.Service.Exceptions;
+using CloudTrader.Api.Service.Interfaces;
+using CloudTrader.Api.Service.Models;
+using CloudTrader.Api.Service.Services;
 using Moq;
 using NUnit.Framework;
 
-namespace CloudTrader.Api.Tests.Services
+namespace CloudTrader.Api.Service.Tests.Services
 {
     public class RegisterServiceTests
     {

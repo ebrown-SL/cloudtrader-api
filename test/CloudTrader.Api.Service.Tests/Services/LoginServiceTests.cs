@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using CloudTrader.Api.Exceptions;
-using CloudTrader.Api.Helpers;
-using CloudTrader.Api.Models;
-using CloudTrader.Api.Repositories;
-using CloudTrader.Api.Services;
+using CloudTrader.Api.Service.Exceptions;
+using CloudTrader.Api.Service.Interfaces;
+using CloudTrader.Api.Service.Models;
+using CloudTrader.Api.Service.Services;
 using Moq;
 using NUnit.Framework;
 
-namespace CloudTrader.Api.Tests.Services
+namespace CloudTrader.Api.Service.Tests.Services
 {
     public class LoginServiceTests
     {
@@ -48,7 +47,7 @@ namespace CloudTrader.Api.Tests.Services
             var mockPasswordUtils = new Mock<IPasswordUtils>();
             var loginService = new LoginService(mockUserRepository.Object, mockTokenGenerator.Object, mockPasswordUtils.Object);
 
-            mockUserRepository.Setup(mock => mock.GetUser("username")).ReturnsAsync(new User{ Id = 1, Username = "username" });
+            mockUserRepository.Setup(mock => mock.GetUser("username")).ReturnsAsync(new User { Id = 1, Username = "username" });
             mockPasswordUtils.Setup(mock => mock.VerifyPassword(It.IsAny<string>(), It.IsAny<byte[]>(), It.IsAny<byte[]>())).Returns(true);
             mockTokenGenerator.Setup(mock => mock.GenerateToken(It.IsAny<int>())).Returns("token");
 
