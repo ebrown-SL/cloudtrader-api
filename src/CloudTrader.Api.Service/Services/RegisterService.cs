@@ -39,7 +39,7 @@ namespace CloudTrader.Api.Service.Services
 
             var id = await _userRepository.SaveUser(user);
 
-            var token = _tokenGenerator.GenerateToken(user.Id);
+            var token = _tokenGenerator.GenerateToken(id);
 
             return new AuthDetails
             {
