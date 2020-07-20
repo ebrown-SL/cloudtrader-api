@@ -1,8 +1,12 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Collections.Immutable;
+using System.Net.Http;
 using System.Threading.Tasks;
 using CloudTrader.Api.Service.Exceptions;
 using CloudTrader.Api.Service.Interfaces;
 using CloudTrader.Api.Service.Models;
+using Newtonsoft.Json.Linq;
+
 
 namespace CloudTrader.Api.Service.Services
 {
@@ -37,7 +41,12 @@ namespace CloudTrader.Api.Service.Services
 
             var response = await client.PostAsync(url, null);
 
-            string result = response.Content.ReadAsStringAsync().Result;
+            JObject result = JObject.Parse(response.Content.ReadAsStringAsync().Result);
+
+            // Extract trader id and use to populate User
+
+            
+            int traderId = Convert.ToInt32(result["id"]);
 
             var user = new User
             {
