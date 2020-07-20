@@ -41,7 +41,7 @@ namespace CloudTrader.Api.Service.Services
 
             var response = await client.PostAsync(url, null);
 
-            JObject result = JObject.Parse(response.Content.ReadAsStringAsync().Result);
+            JObject result = JObject.Parse(await response.Content.ReadAsStringAsync());
 
             // Extract trader id and use to populate User
             int traderId = Convert.ToInt32(result["id"]);
