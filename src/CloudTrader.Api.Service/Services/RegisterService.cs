@@ -66,4 +66,11 @@ namespace CloudTrader.Api.Service.Services
             };
         }
     }
+
+    //Copied from the Traders repo as temporary solution until Traders repo can publish a client 
+    class TraderResponseModel
+    {
+        public int Id { get; set; }
+        public int Balance { get; set; }
+    }
 }
