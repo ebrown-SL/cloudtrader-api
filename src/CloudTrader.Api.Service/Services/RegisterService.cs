@@ -50,7 +50,8 @@ namespace CloudTrader.Api.Service.Services
             {
                 Username = username,
                 PasswordHash = passwordHash,
-                PasswordSalt = passwordSalt
+                PasswordSalt = passwordSalt,
+                TraderId = Convert.ToInt32(traderId)
             };
 
             var id = await _userRepository.SaveUser(user);
