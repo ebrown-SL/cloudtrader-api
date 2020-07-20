@@ -44,8 +44,6 @@ namespace CloudTrader.Api.Service.Services
             JObject result = JObject.Parse(response.Content.ReadAsStringAsync().Result);
 
             // Extract trader id and use to populate User
-
-            
             int traderId = Convert.ToInt32(result["id"]);
 
             var user = new User

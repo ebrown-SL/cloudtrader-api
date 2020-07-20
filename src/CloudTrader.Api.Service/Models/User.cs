@@ -18,5 +18,8 @@ namespace CloudTrader.Api.Service.Models
         [Required]
         [JsonIgnore]
         public byte[] PasswordSalt { get; set; }
+
+        [Required]
+        public int TraderId { get; set; }
     }
 }
