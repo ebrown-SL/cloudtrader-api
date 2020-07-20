@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
 using CloudTrader.Api.Service.Exceptions;
 using CloudTrader.Api.Service.Interfaces;
 using CloudTrader.Api.Service.Models;
@@ -29,6 +30,14 @@ namespace CloudTrader.Api.Service.Services
             }
 
             (byte[] passwordHash, byte[] passwordSalt) = _passwordUtils.CreatePasswordHash(password);
+
+            // Make POST request to the traders API to create new trader
+            using var client = new HttpClient();
+            var url = "https://localhost44399/api/trader";
+
+            var response = await client.PostAsync(url, null);
+
+            string result = response.Content.ReadAsStringAsync().Result;
 
             var user = new User
             {
