@@ -36,23 +36,12 @@ namespace CloudTrader.Api.Service.Services
 
             (byte[] passwordHash, byte[] passwordSalt) = _passwordUtils.CreatePasswordHash(password);
 
-            // Make POST request to the traders API to create new trader
-            using var client = new HttpClient();
-            var url = "https://localhost44399/api/trader";
-
-            var response = await client.PostAsync(url, null);
-
-            // Deserialize fetched object into TraderResponseModel format
-            TraderResponseModel traderObject = JsonConvert.DeserializeObject<TraderResponseModel>(
-                await response.Content.ReadAsStringAsync()
-            );
-
             var user = new User
             {
                 Username = username,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
-                TraderId = traderObject.Id
+                TraderId = createNewTrader().Id
             };
 
             var id = await _userRepository.SaveUser(user);
@@ -65,6 +54,19 @@ namespace CloudTrader.Api.Service.Services
                 Username = user.Username,
                 Token = token
             };
+        }
+        private async Task<TraderResponseModel> createNewTrader()
+        {
+            // Make POST request to the traders API to create new trader
+            using var client = new HttpClient();
+            var url = "https://localhost44399/api/trader";
+
+            var response = await client.PostAsync(url, null);
+
+            // Deserialize fetched object into TraderResponseModel format
+            return JsonConvert.DeserializeObject<TraderResponseModel>(
+                await response.Content.ReadAsStringAsync()
+            );
         }
     }
 
