@@ -19,7 +19,10 @@ namespace CloudTrader.Api.Service.Services
 
         private readonly IPasswordUtils _passwordUtils;
 
-        public RegisterService(IUserRepository userRepository, ITokenGenerator tokenGenerator, IPasswordUtils passwordUtils)
+        public RegisterService(
+            IUserRepository userRepository,
+            ITokenGenerator tokenGenerator, 
+            IPasswordUtils passwordUtils)
         {
             _userRepository = userRepository;
             _tokenGenerator = tokenGenerator;
@@ -55,6 +58,7 @@ namespace CloudTrader.Api.Service.Services
                 Token = token
             };
         }
+
         private async Task<TraderResponseModel> createNewTrader()
         {
             // Make POST request to the traders API to create new trader
@@ -76,4 +80,3 @@ namespace CloudTrader.Api.Service.Services
         public int Id { get; set; }
         public int Balance { get; set; }
     }
-}

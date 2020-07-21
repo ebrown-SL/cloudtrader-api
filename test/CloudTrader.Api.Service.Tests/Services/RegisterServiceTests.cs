@@ -42,5 +42,86 @@ namespace CloudTrader.Api.Service.Tests.Services
 
             Assert.True(isValid);
         }
+
+        public class Register
+        {
+            private Mock<IUserRepository> _mockUserRepository;
+            private Mock<ITokenGenerator> _mockTokenGenerator;
+            private Mock<IPasswordUtils> _mockPasswordUtils;
+
+            private RegisterService _objectUnderTest;
+
+            private const string dummyPassword = "password";
+            private readonly byte[] dummyPasswordHash = new byte[] { 1, 2, 3 };
+            private readonly byte[] dummyPasswordSalt = new byte[] { 4, 5, 6 };
+
+            [SetUp]
+            public void SetupEach()
+            {
+                _mockUserRepository = new Mock<IUserRepository>();
+                _mockUserRepository
+                    .Setup(mock => mock.SaveUser(It.IsAny<User>()))
+                    .Returns(Task.FromResult(999));
+
+                _mockTokenGenerator = new Mock<ITokenGenerator>();
+                _mockTokenGenerator
+                    .Setup(mock => mock.GenerateToken(It.IsAny<int>()))
+                    .Returns("token");
+
+                _mockPasswordUtils = new Mock<IPasswordUtils>();
+                _mockPasswordUtils
+                    .Setup(mock => mock.CreatePasswordHash(dummyPassword))
+                    .Returns((dummyPasswordHash, dummyPasswordSalt));
+
+                _objectUnderTest = new RegisterService(
+                    _mockUserRepository.Object,
+                    _mockTokenGenerator.Object,
+                    _mockPasswordUtils.Object);
+            }
+
+            // Test that user repository is given a user at the point where .Register is called
+            [Test]
+            public async Task CallsUserRepositoryWhenRegisteringUser()
+            {
+                var authDetails = await _objectUnderTest.Register("username", dummyPassword);
+
+                Assert.That(
+                    authDetails.Id,
+                    Is.EqualTo(999),
+                    "ID in return value should be the one returned by the user repository");
+
+                Assert.That(
+                    authDetails.Username,
+                    Is.EqualTo("username"));
+
+                Assert.That(
+                    authDetails.Token,
+                    Is.EqualTo("token"),
+                    "Auth token should be the one from the mock token generator");
+
+                _mockUserRepository.Verify(mock =>
+                    mock.SaveUser(
+                        It.Is<User>(user =>
+                            user.Username == "username"
+                        )
+                    )
+                );
+            }
+
+            [Test]
+            public async Task GeneratesExpectedPasswordHashAndSalt()
+            {
+                var authDetails = await _objectUnderTest.Register("username", dummyPassword);
+
+                _mockUserRepository.Verify(mock =>
+                    mock.SaveUser(
+                        It.Is<User>(user =>
+                            user.PasswordHash == dummyPasswordHash &&
+                            user.PasswordSalt == dummyPasswordSalt
+                        )
+                    )
+                );
+            }
+        }
     }
 }
