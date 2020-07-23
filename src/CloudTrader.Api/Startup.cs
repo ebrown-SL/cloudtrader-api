@@ -41,6 +41,7 @@ namespace CloudTrader.Api
             services.AddControllers();
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ITraderRepository, TraderRepository>();
 
             services.AddScoped<IRegisterService, RegisterService>();
             services.AddScoped<ILoginService, LoginService>();

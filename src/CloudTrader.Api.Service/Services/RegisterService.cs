@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Immutable;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using CloudTrader.Api.Service.Exceptions;
 using CloudTrader.Api.Service.Interfaces;
 using CloudTrader.Api.Service.Models;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-
 
 namespace CloudTrader.Api.Service.Services
 {
@@ -19,14 +13,18 @@ namespace CloudTrader.Api.Service.Services
 
         private readonly IPasswordUtils _passwordUtils;
 
+        private readonly ITraderRepository _traderRepository;
+
         public RegisterService(
             IUserRepository userRepository,
-            ITokenGenerator tokenGenerator, 
-            IPasswordUtils passwordUtils)
+            ITokenGenerator tokenGenerator,
+            IPasswordUtils passwordUtils,
+            ITraderRepository traderRepository)
         {
             _userRepository = userRepository;
             _tokenGenerator = tokenGenerator;
             _passwordUtils = passwordUtils;
+            _traderRepository = traderRepository;
         }
 
         public async Task<AuthDetails> Register(string username, string password)
@@ -39,12 +37,14 @@ namespace CloudTrader.Api.Service.Services
 
             (byte[] passwordHash, byte[] passwordSalt) = _passwordUtils.CreatePasswordHash(password);
 
+            var traderId = await _traderRepository.CreateTrader();
+
             var user = new User
             {
                 Username = username,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
-                TraderId = createNewTrader().Id
+                TraderId = traderId
             };
 
             var id = await _userRepository.SaveUser(user);
@@ -57,26 +57,6 @@ namespace CloudTrader.Api.Service.Services
                 Username = user.Username,
                 Token = token
             };
-        }
-
-        private async Task<TraderResponseModel> createNewTrader()
-        {
-            // Make POST request to the traders API to create new trader
-            using var client = new HttpClient();
-            var url = "https://localhost44399/api/trader";
-
-            var response = await client.PostAsync(url, null);
-
-            // Deserialize fetched object into TraderResponseModel format
-            return JsonConvert.DeserializeObject<TraderResponseModel>(
-                await response.Content.ReadAsStringAsync()
-            );
-        }
+        }   
     }
-
-    //Copied from the Traders repo as temporary solution until Traders repo can publish a client 
-    class TraderResponseModel
-    {
-        public int Id { get; set; }
-        public int Balance { get; set; }
-    }
+}

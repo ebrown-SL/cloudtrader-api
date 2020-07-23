@@ -1,6 +1,10 @@
 ﻿using System.Threading.Tasks;
+using AutoMapper;
+using CloudTrader.Api.Data;
 using CloudTrader.Api.Models;
+using CloudTrader.Api.Service.Helpers;
 using CloudTrader.Api.Service.Interfaces;
+using CloudTrader.Api.Service.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CloudTrader.Api.Controllers

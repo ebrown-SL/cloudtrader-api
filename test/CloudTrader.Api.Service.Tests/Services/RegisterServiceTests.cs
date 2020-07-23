@@ -18,7 +18,11 @@ namespace CloudTrader.Api.Service.Tests.Services
             var mockUserRepository = new Mock<IUserRepository>();
             var mockTokenGenerator = new Mock<ITokenGenerator>();
             var mockPasswordUtils = new Mock<IPasswordUtils>();
-            var registerService = new RegisterService(mockUserRepository.Object, mockTokenGenerator.Object, mockPasswordUtils.Object);
+            var registerService = new RegisterService(
+                mockUserRepository.Object,
+                mockTokenGenerator.Object,
+                mockPasswordUtils.Object,
+                new Mock<ITraderRepository>().Object);
 
             mockUserRepository.Setup(mock => mock.GetUser(It.IsAny<string>())).ReturnsAsync(new User());
 
@@ -31,7 +35,11 @@ namespace CloudTrader.Api.Service.Tests.Services
             var mockUserRepository = new Mock<IUserRepository>();
             var mockTokenGenerator = new Mock<ITokenGenerator>();
             var mockPasswordUtils = new Mock<IPasswordUtils>();
-            var registerService = new RegisterService(mockUserRepository.Object, mockTokenGenerator.Object, mockPasswordUtils.Object);
+            var registerService = new RegisterService(
+                mockUserRepository.Object,
+                mockTokenGenerator.Object,
+                mockPasswordUtils.Object,
+                new Mock<ITraderRepository>().Object);
 
             mockTokenGenerator.Setup(mock => mock.GenerateToken(It.IsAny<int>())).Returns("token");
 
@@ -48,12 +56,15 @@ namespace CloudTrader.Api.Service.Tests.Services
             private Mock<IUserRepository> _mockUserRepository;
             private Mock<ITokenGenerator> _mockTokenGenerator;
             private Mock<IPasswordUtils> _mockPasswordUtils;
+            private Mock<ITraderRepository> _mockTraderRepository;
 
             private RegisterService _objectUnderTest;
 
             private const string dummyPassword = "password";
             private readonly byte[] dummyPasswordHash = new byte[] { 1, 2, 3 };
             private readonly byte[] dummyPasswordSalt = new byte[] { 4, 5, 6 };
+
+            private readonly int dummyTraderId = 99999;
 
             [SetUp]
             public void SetupEach()
@@ -73,10 +84,16 @@ namespace CloudTrader.Api.Service.Tests.Services
                     .Setup(mock => mock.CreatePasswordHash(dummyPassword))
                     .Returns((dummyPasswordHash, dummyPasswordSalt));
 
+                _mockTraderRepository = new Mock<ITraderRepository>();
+                _mockTraderRepository
+                    .Setup(mock => mock.CreateTrader())
+                    .Returns(Task.FromResult(dummyTraderId));
+
                 _objectUnderTest = new RegisterService(
                     _mockUserRepository.Object,
                     _mockTokenGenerator.Object,
-                    _mockPasswordUtils.Object);
+                    _mockPasswordUtils.Object,
+                    _mockTraderRepository.Object);
             }
 
             // Test that user repository is given a user at the point where .Register is called
@@ -120,6 +137,24 @@ namespace CloudTrader.Api.Service.Tests.Services
                             user.PasswordSalt == dummyPasswordSalt
                         )
                     )
+                );
+            }
+
+            [Test]
+            public async Task RegisterServiceUsesTraderRepository()
+            {
+                var authDetails = await _objectUnderTest.Register("username", dummyPassword);
+
+                _mockUserRepository.Verify(mock =>
+                    mock.SaveUser(
+                        It.Is<User>(user =>
+                            user.TraderId == dummyTraderId
+                        )
+                    )
+                );
+                
+                _mockTraderRepository.Verify(mock =>
+                    mock.CreateTrader()
                 );
             }
         }
