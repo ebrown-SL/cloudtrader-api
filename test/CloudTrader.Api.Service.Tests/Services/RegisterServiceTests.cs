@@ -22,7 +22,7 @@ namespace CloudTrader.Api.Service.Tests.Services
                 mockUserRepository.Object,
                 mockTokenGenerator.Object,
                 mockPasswordUtils.Object,
-                new Mock<ITraderRepository>().Object);
+                new Mock<ITraderApiService>().Object);
 
             mockUserRepository.Setup(mock => mock.GetUser(It.IsAny<string>())).ReturnsAsync(new User());
 
@@ -39,7 +39,7 @@ namespace CloudTrader.Api.Service.Tests.Services
                 mockUserRepository.Object,
                 mockTokenGenerator.Object,
                 mockPasswordUtils.Object,
-                new Mock<ITraderRepository>().Object);
+                new Mock<ITraderApiService>().Object);
 
             mockTokenGenerator.Setup(mock => mock.GenerateToken(It.IsAny<int>())).Returns("token");
 
@@ -56,7 +56,7 @@ namespace CloudTrader.Api.Service.Tests.Services
             private Mock<IUserRepository> _mockUserRepository;
             private Mock<ITokenGenerator> _mockTokenGenerator;
             private Mock<IPasswordUtils> _mockPasswordUtils;
-            private Mock<ITraderRepository> _mockTraderRepository;
+            private Mock<ITraderApiService> _mockTraderApiService;
 
             private RegisterService _objectUnderTest;
 
@@ -84,8 +84,8 @@ namespace CloudTrader.Api.Service.Tests.Services
                     .Setup(mock => mock.CreatePasswordHash(dummyPassword))
                     .Returns((dummyPasswordHash, dummyPasswordSalt));
 
-                _mockTraderRepository = new Mock<ITraderRepository>();
-                _mockTraderRepository
+                _mockTraderApiService = new Mock<ITraderApiService>();
+                _mockTraderApiService
                     .Setup(mock => mock.CreateTrader())
                     .Returns(Task.FromResult(dummyTraderId));
 
@@ -93,7 +93,7 @@ namespace CloudTrader.Api.Service.Tests.Services
                     _mockUserRepository.Object,
                     _mockTokenGenerator.Object,
                     _mockPasswordUtils.Object,
-                    _mockTraderRepository.Object);
+                    _mockTraderApiService.Object);
             }
 
             // Test that user repository is given a user at the point where .Register is called
@@ -141,7 +141,7 @@ namespace CloudTrader.Api.Service.Tests.Services
             }
 
             [Test]
-            public async Task RegisterServiceUsesTraderRepository()
+            public async Task RegisterServiceUsesTraderApiService()
             {
                 var authDetails = await _objectUnderTest.Register("username", dummyPassword);
 
@@ -153,7 +153,7 @@ namespace CloudTrader.Api.Service.Tests.Services
                     )
                 );
                 
-                _mockTraderRepository.Verify(mock =>
+                _mockTraderApiService.Verify(mock =>
                     mock.CreateTrader()
                 );
             }

@@ -13,18 +13,18 @@ namespace CloudTrader.Api.Service.Services
 
         private readonly IPasswordUtils _passwordUtils;
 
-        private readonly ITraderRepository _traderRepository;
+        private readonly ITraderApiService _traderApiService;
 
         public RegisterService(
             IUserRepository userRepository,
             ITokenGenerator tokenGenerator,
             IPasswordUtils passwordUtils,
-            ITraderRepository traderRepository)
+            ITraderApiService traderRepository)
         {
             _userRepository = userRepository;
             _tokenGenerator = tokenGenerator;
             _passwordUtils = passwordUtils;
-            _traderRepository = traderRepository;
+            _traderApiService = traderRepository;
         }
 
         public async Task<AuthDetails> Register(string username, string password)
@@ -37,7 +37,7 @@ namespace CloudTrader.Api.Service.Services
 
             (byte[] passwordHash, byte[] passwordSalt) = _passwordUtils.CreatePasswordHash(password);
 
-            var traderId = await _traderRepository.CreateTrader();
+            var traderId = await _traderApiService.CreateTrader();
 
             var user = new User
             {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CloudTrader.Api.Data
 {
-    public class TraderRepository : ITraderRepository
+    public class TraderApiService : ITraderApiService
     {
         private const string traderServiceUrl = "https://localhost:44399/api/trader";
 

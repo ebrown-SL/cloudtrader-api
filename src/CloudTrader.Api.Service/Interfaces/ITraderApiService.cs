@@ -2,7 +2,7 @@
 
 namespace CloudTrader.Api.Service.Interfaces
 {
-    public interface ITraderRepository
+    public interface ITraderApiService
     {
         Task<int> CreateTrader();
     }
