@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using CloudTrader.Api.Service.Interfaces;
@@ -36,6 +37,17 @@ namespace CloudTrader.Api.Service.Helpers
             var tokenString = tokenHandler.WriteToken(token);
 
             return tokenString;
+        }
+
+        public string DecodeToken(string tokenString, string claimType)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var securityToken = tokenHandler.ReadToken(tokenString) as JwtSecurityToken;
+
+            var stringClaimValue = securityToken.Claims.First(claim => claim.Type == claimType).Value;
+            return stringClaimValue;
+
+
         }
     }
 }
