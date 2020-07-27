@@ -15,5 +15,8 @@ namespace CloudTrader.Api.Data
 
         [Required]
         public byte[] PasswordSalt { get; set; }
+
+        [Required]
+        public int TraderId { get; set; }
     }
 }
