@@ -1,4 +1,5 @@
-﻿using CloudTrader.Api.Service.Interfaces;
+﻿using CloudTrader.Api.Service.Helpers;
+using CloudTrader.Api.Service.Interfaces;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
@@ -20,10 +21,8 @@ namespace CloudTrader.Api.Data
             var response = await client.PostAsync(traderServiceUrl, payload);
 
             // Deserialize fetched object into TraderResponseModel format
-            var traderModel = JsonConvert.DeserializeObject<Trader>(
-                await response.Content.ReadAsStringAsync()
-            );
-
+            var traderModel = await response.ReadAsJson<Trader>();
+            
             return traderModel.Id;
         }
 
@@ -35,9 +34,7 @@ namespace CloudTrader.Api.Data
 
             var response = await client.GetAsync(uri);
 
-            return JsonConvert.DeserializeObject<Trader>(
-                await response.Content.ReadAsStringAsync()
-            );
+            return await response.ReadAsJson<Trader>();
         }
     }
 
