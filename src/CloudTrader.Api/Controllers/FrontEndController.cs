@@ -20,13 +20,17 @@ namespace CloudTrader.Api.Controllers
             _userRepository = userRepository;
         }
 
-        [HttpPost("getUser{id}")]
-        public async Task<User> GetUser(int id)
+        [HttpGet("getUser{userId}")]
+        public async Task<IActionResult> GetUser(int userId)
         {
-            var user = await _userRepository.GetUser(id);
-            return user;
+            var user = await _userRepository.GetUser(userId);
+            return Ok(user);
         }
 
-        
+        /*[HttpGet("getTrader{id}")]
+        public async Task<IActionResult> GetTrader(int traderId)
+        {
+            var trader = await 
+        }*/
     }
 }

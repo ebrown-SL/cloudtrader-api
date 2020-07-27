@@ -20,16 +20,29 @@ namespace CloudTrader.Api.Data
             var response = await client.PostAsync(traderServiceUrl, payload);
 
             // Deserialize fetched object into TraderResponseModel format
-            var traderModel = JsonConvert.DeserializeObject<TraderResponseModel>(
+            var traderModel = JsonConvert.DeserializeObject<Trader>(
                 await response.Content.ReadAsStringAsync()
             );
 
             return traderModel.Id;
         }
+
+        public async Task<Trader> GetTrader(int traderId)
+        {
+            using var client = new HttpClient();
+
+            var uri = $"{traderServiceUrl}/{traderId}";
+
+            var response = await client.GetAsync(uri);
+
+            return JsonConvert.DeserializeObject<Trader>(
+                await response.Content.ReadAsStringAsync()
+            );
+        }
     }
 
     //Copied from the Traders repo as temporary solution until Traders repo can publish a client 
-    class TraderResponseModel
+    public class Trader
     {
         public int Id { get; set; }
         public int Balance { get; set; }
