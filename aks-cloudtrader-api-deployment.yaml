@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cloudtrader-api
@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name:cloudtrader-api
-        image: cloudtrader.azurecr.io/cloudtrader-api:latest
+        image: cloudtrader.azurecr.io/cloudtrader-api:v1
         ports:
         - containerPort: 80
