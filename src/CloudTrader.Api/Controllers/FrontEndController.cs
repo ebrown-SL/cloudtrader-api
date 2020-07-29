@@ -9,6 +9,8 @@ using CloudTrader.Api.Service.Interfaces;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Http;
 using CloudTrader.Api.Service.Helpers;
+using Swashbuckle.AspNetCore.Annotations;
+
 
 namespace CloudTrader.Api.Controllers
 {
@@ -31,6 +33,10 @@ namespace CloudTrader.Api.Controllers
         }
 
         [HttpGet("whoAmI")]
+        [SwaggerOperation(
+            Summary = "Get current user's id",
+            Description = "Returns an int of the id of currently logged-in user")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(int))]
         public async Task<IActionResult> GetUser()
         {
             // Capture the authentication token from the http request using the relevant header
@@ -45,6 +51,10 @@ namespace CloudTrader.Api.Controllers
         }
 
         [HttpGet("currentUserBalance")]
+        [SwaggerOperation(
+            Summary = "Get current user's balance",
+            Description = "Returns an int of the balance of currently logged-in user")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(int))]
         public async Task<IActionResult> GetBalance()
         {
             var authToken = GetAuthTokenFrom(Request);
