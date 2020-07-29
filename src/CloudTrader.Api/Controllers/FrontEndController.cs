@@ -10,11 +10,12 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Http;
 using CloudTrader.Api.Service.Helpers;
 using Swashbuckle.AspNetCore.Annotations;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace CloudTrader.Api.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("[controller]")]
     public class FrontEndController : Controller
     {
@@ -39,11 +40,7 @@ namespace CloudTrader.Api.Controllers
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(int))]
         public async Task<IActionResult> GetUser()
         {
-            // Capture the authentication token from the http request using the relevant header
-            var authToken = GetAuthTokenFrom(Request);
-
-            // Decode the token to give the userId
-            var userId = _tokenGenerator.DecodeToken(authToken);
+            var userId = int.Parse(User.Identity.Name);
 
             // Return the user by sending a GET request with the userId
             var user = await _userRepository.GetUser(userId);
