@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using CloudTrader.Api.Service.Models;
-using CloudTrader.Api.Data;
 using CloudTrader.Api.Service.Interfaces;
-using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Http;
-using CloudTrader.Api.Service.Helpers;
 using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.AspNetCore.Authorization;
 
