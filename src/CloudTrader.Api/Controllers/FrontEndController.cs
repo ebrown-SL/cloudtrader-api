@@ -54,21 +54,12 @@ namespace CloudTrader.Api.Controllers
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(int))]
         public async Task<IActionResult> GetBalance()
         {
-            var authToken = GetAuthTokenFrom(Request);
-            var userId = _tokenGenerator.DecodeToken(authToken);
+            var userId = int.Parse(User.Identity.Name);
             var currentUser = await _userRepository.GetUser(userId);
             var currentUserTraderId = currentUser.TraderId;
             var balance = await _traderApiService.GetTrader(currentUserTraderId);
 
             return Ok(balance);
-        }
-
-        private static string GetAuthTokenFrom(HttpRequest request)
-        {
-            var match = new Regex("^Bearer (.+)")
-                .Match(request.Headers["Authorization"].ToString());
-
-            return match.Groups[0].Value;
         }
     }
 }

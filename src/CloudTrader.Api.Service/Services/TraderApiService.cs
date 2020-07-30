@@ -9,7 +9,7 @@ namespace CloudTrader.Api.Data
 {
     public class TraderApiService : ITraderApiService
     {
-        private const string traderServiceUrl = "https://localhost:44399/api/trader";
+        private const string traderServiceUrl = "http://localhost:6000/api/trader";
 
         public async Task<int> CreateTrader()
         {
