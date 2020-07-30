@@ -38,17 +38,5 @@ namespace CloudTrader.Api.Service.Helpers
 
             return tokenString;
         }
-
-        public int DecodeToken(string tokenString)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var securityToken = tokenHandler.ReadToken(tokenString) as JwtSecurityToken;
-
-            var stringClaimValue = securityToken.Claims
-                .First(claim => claim.Type == ClaimTypes.Name)
-                .Value;
-
-            return int.Parse(stringClaimValue);
-        }
     }
 }
