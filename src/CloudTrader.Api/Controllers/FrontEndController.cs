@@ -26,7 +26,7 @@ namespace CloudTrader.Api.Controllers
             _traderApiService = traderRepository;
         }
 
-        [HttpGet("whoAmI")]
+        [HttpGet("user/current")]
         [SwaggerOperation(
             Summary = "Get current user's id",
             Description = "Returns an int of the id of currently logged-in user")]
@@ -40,7 +40,7 @@ namespace CloudTrader.Api.Controllers
             return Ok(user);
         }
 
-        [HttpGet("currentUserBalance")]
+        [HttpGet("user/current/balance")]
         [SwaggerOperation(
             Summary = "Get current user's balance",
             Description = "Returns an int of the balance of currently logged-in user")]
