@@ -6,6 +6,6 @@ namespace CloudTrader.Api.Service.Interfaces
     public interface ITraderApiService
     {
         Task<int> CreateTrader();
-        Task<Trader> GetTrader(int traderId);
+        Task<TraderResponseModel> GetTrader(int traderId);
     }
 }
