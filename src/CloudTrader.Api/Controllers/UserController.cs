@@ -10,20 +10,14 @@ namespace CloudTrader.Api.Controllers
     [ApiController]
     [Authorize]
     [Route("[controller]")]
-    public class FrontEndController : Controller
+    public class UserController : Controller
     {
-        private readonly IUserRepository _userRepository;
-        private readonly ITokenGenerator _tokenGenerator;
-        private readonly ITraderApiService _traderApiService;
+        private readonly IUserService _userService;
 
-        public FrontEndController(
-            IUserRepository userRepository,
-            ITokenGenerator tokenGenerator,
-            ITraderApiService traderRepository)
+        public UserController(
+            IUserService userService)
         {
-            _userRepository = userRepository;
-            _tokenGenerator = tokenGenerator;
-            _traderApiService = traderRepository;
+            _userService = userService;
         }
 
         [HttpGet("user/current")]
@@ -35,9 +29,7 @@ namespace CloudTrader.Api.Controllers
         {
             var userId = int.Parse(User.Identity.Name);
 
-            // Return the user by sending a GET request with the userId
-            var user = await _userRepository.GetUser(userId);
-            return Ok(user);
+            return Ok(await _userService.GetUser(userId));
         }
 
         [HttpGet("user/current/balance")]
@@ -48,11 +40,8 @@ namespace CloudTrader.Api.Controllers
         public async Task<IActionResult> GetBalance()
         {
             var userId = int.Parse(User.Identity.Name);
-            var currentUser = await _userRepository.GetUser(userId);
-            var currentUserTraderId = currentUser.TraderId;
-            var balance = await _traderApiService.GetTrader(currentUserTraderId);
 
-            return Ok(balance);
+            return Ok(await _userService.GetBalanceOfUser(userId));
         }
     }
 }
