@@ -10,6 +10,10 @@ In development mode use user secrets to set the JWT configuration which will be 
 
 `dotnet user-secrets set "JwtTokenOptions:Key" "<your-key>"`
 
+### Swagger UI
+
+Once running, access Swagger UI at https://localhost:5001/swagger.
+
 ## Running unit tests
 
 Run `dotnet test`
