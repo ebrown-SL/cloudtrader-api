@@ -50,6 +50,8 @@ namespace CloudTrader.Api
             services.AddSingleton<ITokenGenerator, JwtTokenGenerator>();
             services.AddSingleton<IPasswordUtils, PasswordUtils>();
 
+            services.AddScoped<IUserService, UserService>();
+
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
