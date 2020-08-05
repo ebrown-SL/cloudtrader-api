@@ -52,6 +52,8 @@ namespace CloudTrader.Api
 
             services.AddScoped<IUserService, UserService>();
 
+            services.AddScoped<IMineApiService, MineApiService>();
+
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

@@ -8,13 +8,16 @@ namespace CloudTrader.Api.Service.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly ITraderApiService _traderApiService;
+        private readonly IMineApiService _mineApiService;
 
         public UserService(
             IUserRepository userRepository, 
-            ITraderApiService traderApiService)
+            ITraderApiService traderApiService,
+            IMineApiService mineApiService)
         {
             _userRepository = userRepository;
             _traderApiService = traderApiService;
+            _mineApiService = mineApiService;
         }
 
         public async Task<int> GetBalanceOfUser(int userId)
@@ -28,6 +31,30 @@ namespace CloudTrader.Api.Service.Services
         public Task<User> GetUser(int userId)
         {
             return _userRepository.GetUser(userId);
+        }
+
+        public async Task ProcessTransaction(
+            int userId, 
+            int mineId, 
+            int quantity, 
+            int purchaseAmount)
+        {
+            var currentUser = await GetUser(userId);
+            var currentUserTraderId = currentUser.TraderId;
+
+            // Update user/trader's balance
+            await _traderApiService.UpdateTraderBalanceForPurchase(
+                userId, currentUserTraderId, purchaseAmount
+            );
+
+            // Update user/trader's stock
+           await _traderApiService.UpdateTraderMineStockForPurchase(
+                currentUserTraderId, mineId, quantity
+            );
+
+            // Update mine's stock
+            await _mineApiService.UpdateMineStock(mineId, quantity);
+
         }
     }
 }

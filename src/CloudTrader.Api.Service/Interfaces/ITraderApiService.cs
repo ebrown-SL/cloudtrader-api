@@ -7,5 +7,15 @@ namespace CloudTrader.Api.Service.Interfaces
     {
         Task<int> CreateTrader();
         Task<TraderResponseModel> GetTrader(int traderId);
+        Task UpdateTraderMineStockForPurchase(
+            int traderId,
+            int mineId,
+            int quantityPurchased
+        );
+        Task UpdateTraderBalanceForPurchase(
+            int userId,
+            int traderId,
+            int purchaseAmount
+        );
     }
 }

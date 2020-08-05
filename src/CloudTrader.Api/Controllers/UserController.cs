@@ -43,5 +43,20 @@ namespace CloudTrader.Api.Controllers
 
             return Ok(await _userService.GetBalanceOfUser(userId));
         }
+
+        [HttpPost("current/stock/buy")]
+        [SwaggerOperation(
+            Summary = "Process purchase request",
+            Description = "Update the current user's balance; update the current user's stock; update the mine's stock")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(void))]
+
+        public async Task<IActionResult> ProcessTransaction(int mineId, int quantity, int purchaseAmount)
+        {
+            var userId = int.Parse(User.Identity.Name);
+
+            await _userService.ProcessTransaction(userId, mineId, quantity, purchaseAmount);
+
+            return Ok();
+        }
     }
 }
