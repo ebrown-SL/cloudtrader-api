@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace CloudTrader.Api.Service.Services
 {
-    class UserService : IUserService
+    public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
         private readonly ITraderApiService _traderApiService;
