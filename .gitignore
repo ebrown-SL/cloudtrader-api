@@ -361,3 +361,6 @@ FodyWeavers.xsd
 
 # Mac
 .DS_Store
+
+#kdiff temporary files
+*.orig
