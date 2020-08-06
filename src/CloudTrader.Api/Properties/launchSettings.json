@@ -3,7 +3,6 @@
   "profiles": {
     "CloudTrader.Api": {
       "commandName": "Project",
-      "launchUrl": "weatherforecast",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "TRADER_API_URL": "http://localhost:1182"
