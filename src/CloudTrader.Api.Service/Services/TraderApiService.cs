@@ -1,5 +1,7 @@
+﻿using CloudTrader.Api.Service.Interfaces;
 ﻿using CloudTrader.Api.Service.Helpers;
-using CloudTrader.Api.Service.Interfaces;
+using Newtonsoft.Json;
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +10,7 @@ namespace CloudTrader.Api.Data
 {
     public class TraderApiService : ITraderApiService
     {
-        private const string traderServiceUrl = "http://localhost:5999/api/trader";
+        private readonly string traderServiceUrl = Environment.GetEnvironmentVariable("TRADER_API_URL") + "/api/trader";
 
         public async Task<int> CreateTrader()
         {
@@ -16,7 +18,6 @@ namespace CloudTrader.Api.Data
             using var client = new HttpClient();
 
             var payload = new StringContent("", Encoding.UTF8, "application/json");
-
             var response = await client.PostAsync(traderServiceUrl, payload);
 
             // Deserialize fetched object into TraderResponseModel format
