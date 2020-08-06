@@ -20,7 +20,7 @@ namespace CloudTrader.Api.Controllers
             _userService = userService;
         }
 
-        [HttpGet("user/current")]
+        [HttpGet("current")]
         [SwaggerOperation(
             Summary = "Get current user's id",
             Description = "Returns an int of the id of currently logged-in user")]
@@ -32,7 +32,7 @@ namespace CloudTrader.Api.Controllers
             return Ok(await _userService.GetUser(userId));
         }
 
-        [HttpGet("user/current/balance")]
+        [HttpGet("current/balance")]
         [SwaggerOperation(
             Summary = "Get current user's balance",
             Description = "Returns an int of the balance of currently logged-in user")]
