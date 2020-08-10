@@ -22,7 +22,7 @@ namespace CloudTrader.Api.Service.Services
 
         public async Task<AuthDetails> Login(string username, string password)
         {
-            var user = await _userRepository.GetUser(username);
+            var user = await _userRepository.GetUserByName(username);
             if (user == null)
             {
                 throw new UnauthorizedException("Username or password is incorrect");

@@ -19,7 +19,7 @@ namespace CloudTrader.Api.Service.Helpers
             _options = options.Value;
         }
 
-        public string GenerateToken(int id)
+        public string GenerateToken(Guid id)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_options.Key);

@@ -29,7 +29,7 @@ namespace CloudTrader.Api.Service.Services
 
         public async Task<AuthDetails> Register(string username, string password)
         {
-            var existingUser = await _userRepository.GetUser(username);
+            var existingUser = await _userRepository.GetUserByName(username);
             if (existingUser != null)
             {
                 throw new UsernameAlreadyExistsException(username);

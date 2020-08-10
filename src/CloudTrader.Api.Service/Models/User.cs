@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace CloudTrader.Api.Service.Models
@@ -6,7 +7,7 @@ namespace CloudTrader.Api.Service.Models
     public class User
     {
         [Required]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         public string Username { get; set; }
@@ -20,6 +21,6 @@ namespace CloudTrader.Api.Service.Models
         public byte[] PasswordSalt { get; set; }
 
         [Required]
-        public int TraderId { get; set; }
+        public Guid TraderId { get; set; }
     }
 }

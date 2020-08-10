@@ -1,5 +1,6 @@
 ﻿using CloudTrader.Api.Service.Interfaces;
 using CloudTrader.Api.Service.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace CloudTrader.Api.Service.Services
@@ -17,7 +18,7 @@ namespace CloudTrader.Api.Service.Services
             _traderApiService = traderApiService;
         }
 
-        public async Task<int> GetBalanceOfUser(int userId)
+        public async Task<int> GetBalanceOfUser(Guid userId)
         {
             var currentUser = await GetUser(userId);
             var currentUserTraderId = currentUser.TraderId;
@@ -25,7 +26,7 @@ namespace CloudTrader.Api.Service.Services
             return trader.Balance;
         }
 
-        public Task<User> GetUser(int userId)
+        public Task<User> GetUser(Guid userId)
         {
             return _userRepository.GetUser(userId);
         }

@@ -6,6 +6,7 @@ namespace CloudTrader.Api.Data
     public class UserContext : DbContext
     {
         private readonly IConfiguration _configuration;
+
         public UserContext(DbContextOptions<UserContext> options, IConfiguration configuration)
             : base(options)
         {

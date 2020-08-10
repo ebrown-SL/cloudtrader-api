@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AutoMapper;
 using CloudTrader.Api.Service.Interfaces;
 using CloudTrader.Api.Service.Models;
@@ -12,33 +13,31 @@ namespace CloudTrader.Api.Data
 
         private readonly UserContext _context;
 
-        public UserRepository(IMapper mapper)
+        public UserRepository(IMapper mapper, UserContext context)
         {
             _mapper = mapper;
-
-            var contextOptions = new DbContextOptionsBuilder<UserContext>()
-                .UseInMemoryDatabase(databaseName: "Traders")
-                .Options;
-            _context = new UserContext(contextOptions);
+            _context = context;
+            _context.Database.EnsureCreated();
         }
 
-        public async Task<int> SaveUser(User user)
+        public async Task<Guid> SaveUser(User user)
         {
             var userDbModel = _mapper.Map<UserDbModel>(user);
+            userDbModel.Id = new Guid();
             _context.Users.Add(userDbModel);
             await _context.SaveChangesAsync();
 
             return userDbModel.Id;
         }
 
-        public async Task<User> GetUser(int id)
+        public async Task<User> GetUser(Guid id)
         {
             var userDbModel = await _context.Users.SingleOrDefaultAsync(x => x.Id == id);
             var user = _mapper.Map<User>(userDbModel);
             return user;
         }
 
-        public async Task<User> GetUser(string username)
+        public async Task<User> GetUserByName(string username)
         {
             var userDbModel = await _context.Users.SingleOrDefaultAsync(x => x.Username == username);
             var user = _mapper.Map<User>(userDbModel);

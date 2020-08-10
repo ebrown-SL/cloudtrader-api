@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using AutoMapper;
 using CloudTrader.Api.Data;
@@ -41,6 +42,7 @@ namespace CloudTrader.Api
 
             services.AddControllers();
 
+            services.AddDbContext<UserContext>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITraderApiService, TraderApiService>();
 
@@ -62,7 +64,7 @@ namespace CloudTrader.Api
                 {
                     OnTokenValidated = async context =>
                     {
-                        var userId = int.Parse(context.Principal.Identity.Name);
+                        var userId = Guid.Parse(context.Principal.Identity.Name);
                         var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
                         var user = await userRepository.GetUser(userId);
                         if (user == null)
