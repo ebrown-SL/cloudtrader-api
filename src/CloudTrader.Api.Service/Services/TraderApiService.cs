@@ -4,6 +4,7 @@ using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using CloudTrader.Api.Service.Exceptions;
 
 namespace CloudTrader.Api.Data
 {
@@ -18,12 +19,19 @@ namespace CloudTrader.Api.Data
             using var client = new HttpClient();
 
             var payload = new StringContent($" {{ \"balance\": {INITIAL_TRADER_BALANCE} }} ", Encoding.UTF8, "application/json");
-            var response = await client.PostAsync(traderServiceUrl, payload);
 
-            // Deserialize fetched object into TraderResponseModel format
-            var traderModel = await response.ReadAsJson<TraderResponseModel>();
-            
-            return traderModel.Id;
+            try
+            {
+                var response = await client.PostAsync(traderServiceUrl, payload);
+                response.EnsureSuccessStatusCode();
+                // Deserialize fetched object into TraderResponseModel format
+                var traderModel = await response.ReadAsJson<TraderResponseModel>();
+
+                return traderModel.Id;
+            } catch
+            {
+                throw new ApiConnectionError("trader");
+            }
         }
 
         public async Task<TraderResponseModel> GetTrader(int traderId)
