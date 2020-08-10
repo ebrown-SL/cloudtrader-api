@@ -14,11 +14,11 @@ spec:
     spec:
       containers:
         - name: cloudtrader-api
-          image: cloudtrader.azurecr.io/cloudtrader-api:v1.2
+          image: cloudtrader.azurecr.io/cloudtrader-api:v1.3.2
           ports:
             - containerPort: 80
           env:
             - name: TRADER_API_URL
               value: 'http://cloudtrader-traders'
             - name: JwtTokenOptions__Key
-              value: 'aslkjfaleu3b3988931rdbfsjkfbjksbkal34r973rb9bdsf'
+              value: '< TOKEN HERE >
