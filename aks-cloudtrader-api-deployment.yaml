@@ -21,4 +21,4 @@ spec:
             - name: TRADER_API_URL
               value: 'http://cloudtrader-traders'
             - name: JwtTokenOptions__Key
-              value: '<TOKEN_HERE>'
+              value: 'aslkjfaleu3b3988931rdbfsjkfbjksbkal34r973rb9bdsf'
