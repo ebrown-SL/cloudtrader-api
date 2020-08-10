@@ -4,6 +4,7 @@ using CloudTrader.Api.Service.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.AspNetCore.Authorization;
+using CloudTrader.Api.Service.Services;
 
 namespace CloudTrader.Api.Controllers
 {
@@ -13,11 +14,15 @@ namespace CloudTrader.Api.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
+        private readonly IMineApiService _mineApiService;
+
 
         public UserController(
-            IUserService userService)
+            IUserService userService,
+            IMineApiService mineApiService)
         {
             _userService = userService;
+            _mineApiService = mineApiService;
         }
 
         [HttpGet("current")]
@@ -44,12 +49,24 @@ namespace CloudTrader.Api.Controllers
             return Ok(await _userService.GetBalanceOfUser(userId));
         }
 
+        /*[HttpPost("current/stock/{id}")]
+        [SwaggerOperation(
+            Summary = "Process purchase request",
+            Description = "Update the current user's balance; update the current user's stock; update the mine's stock")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(int))]
+        public async Task<IActionResult> GetStockOfMine(int id)
+        {
+            var userId = int.Parse(User.Identity.Name);
+
+            return Ok(await _mineApiService.GetMineStock(id));
+        }
+*/
+
         [HttpPost("current/stock/buy")]
         [SwaggerOperation(
             Summary = "Process purchase request",
             Description = "Update the current user's balance; update the current user's stock; update the mine's stock")]
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(void))]
-
         public async Task<IActionResult> ProcessTransaction(int mineId, int quantity, int purchaseAmount)
         {
             var userId = int.Parse(User.Identity.Name);
