@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using CloudTrader.Api.Service.Exceptions;
@@ -24,7 +25,7 @@ namespace CloudTrader.Api.Service.Tests.Services
                 mockPasswordUtils.Object,
                 new Mock<ITraderApiService>().Object);
 
-            mockUserRepository.Setup(mock => mock.GetUser(It.IsAny<string>())).ReturnsAsync(new User());
+            mockUserRepository.Setup(mock => mock.GetUserByName(It.IsAny<string>())).ReturnsAsync(new User());
 
             Assert.ThrowsAsync<UsernameAlreadyExistsException>(async () => await registerService.Register("username", "password"));
         }
@@ -41,7 +42,7 @@ namespace CloudTrader.Api.Service.Tests.Services
                 mockPasswordUtils.Object,
                 new Mock<ITraderApiService>().Object);
 
-            mockTokenGenerator.Setup(mock => mock.GenerateToken(It.IsAny<int>())).Returns("token");
+            mockTokenGenerator.Setup(mock => mock.GenerateToken(It.IsAny<Guid>())).Returns("token");
 
             var authDetails = await registerService.Register("username", "password");
 
@@ -64,7 +65,7 @@ namespace CloudTrader.Api.Service.Tests.Services
             private readonly byte[] dummyPasswordHash = new byte[] { 1, 2, 3 };
             private readonly byte[] dummyPasswordSalt = new byte[] { 4, 5, 6 };
 
-            private readonly int dummyTraderId = 99999;
+            private readonly Guid dummyTraderId = new Guid();
 
             [SetUp]
             public void SetupEach()
@@ -72,11 +73,11 @@ namespace CloudTrader.Api.Service.Tests.Services
                 _mockUserRepository = new Mock<IUserRepository>();
                 _mockUserRepository
                     .Setup(mock => mock.SaveUser(It.IsAny<User>()))
-                    .Returns(Task.FromResult(999));
+                    .Returns(Task.FromResult(dummyTraderId));
 
                 _mockTokenGenerator = new Mock<ITokenGenerator>();
                 _mockTokenGenerator
-                    .Setup(mock => mock.GenerateToken(It.IsAny<int>()))
+                    .Setup(mock => mock.GenerateToken(It.IsAny<Guid>()))
                     .Returns("token");
 
                 _mockPasswordUtils = new Mock<IPasswordUtils>();
@@ -104,7 +105,7 @@ namespace CloudTrader.Api.Service.Tests.Services
 
                 Assert.That(
                     authDetails.Id,
-                    Is.EqualTo(999),
+                    Is.EqualTo(dummyTraderId),
                     "ID in return value should be the one returned by the user repository");
 
                 Assert.That(

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using CloudTrader.Api.Service.Exceptions;
@@ -20,7 +21,7 @@ namespace CloudTrader.Api.Service.Tests.Services
             var mockPasswordUtils = new Mock<IPasswordUtils>();
             var loginService = new LoginService(mockUserRepository.Object, mockTokenGenerator.Object, mockPasswordUtils.Object);
 
-            mockUserRepository.Setup(mock => mock.GetUser(It.IsAny<string>())).ReturnsAsync((User)null);
+            mockUserRepository.Setup(mock => mock.GetUser(It.IsAny<Guid>())).ReturnsAsync((User)null);
 
             Assert.ThrowsAsync<UnauthorizedException>(async () => await loginService.Login("username", "password"));
         }
@@ -33,7 +34,7 @@ namespace CloudTrader.Api.Service.Tests.Services
             var mockPasswordUtils = new Mock<IPasswordUtils>();
             var loginService = new LoginService(mockUserRepository.Object, mockTokenGenerator.Object, mockPasswordUtils.Object);
 
-            mockUserRepository.Setup(mock => mock.GetUser(It.IsAny<string>())).ReturnsAsync(new User());
+            mockUserRepository.Setup(mock => mock.GetUser(It.IsAny<Guid>())).ReturnsAsync(new User());
             mockPasswordUtils.Setup(mock => mock.VerifyPassword(It.IsAny<string>(), It.IsAny<byte[]>(), It.IsAny<byte[]>())).Returns(false);
 
             Assert.ThrowsAsync<UnauthorizedException>(async () => await loginService.Login("username", "password"));
@@ -47,9 +48,9 @@ namespace CloudTrader.Api.Service.Tests.Services
             var mockPasswordUtils = new Mock<IPasswordUtils>();
             var loginService = new LoginService(mockUserRepository.Object, mockTokenGenerator.Object, mockPasswordUtils.Object);
 
-            mockUserRepository.Setup(mock => mock.GetUser("username")).ReturnsAsync(new User { Id = 1, Username = "username" });
+            mockUserRepository.Setup(mock => mock.GetUserByName("username")).ReturnsAsync(new User { Id = new Guid(), Username = "username" });
             mockPasswordUtils.Setup(mock => mock.VerifyPassword(It.IsAny<string>(), It.IsAny<byte[]>(), It.IsAny<byte[]>())).Returns(true);
-            mockTokenGenerator.Setup(mock => mock.GenerateToken(It.IsAny<int>())).Returns("token");
+            mockTokenGenerator.Setup(mock => mock.GenerateToken(It.IsAny<Guid>())).Returns("token");
 
             var authDetails = await loginService.Login("username", "password");
 
