@@ -9,7 +9,7 @@ namespace CloudTrader.Api.Service.Services
 {
     public class MineApiService : IMineApiService
     {
-        private const string mineServiceUrl = "http://localhost:51034/api/mine";
+        private const string mineServiceUrl = "http://localhost:1189/api/mine";
 
         public async Task<int> GetMineStock(int mineId)
         {
@@ -32,8 +32,8 @@ namespace CloudTrader.Api.Service.Services
 
             await client.PatchAsync(
                 $"{mineServiceUrl}/{mineId}",
-                ObjectExtensions.ToJsonStringContent(new { Stock = newStock })
-            ); 
+                new { Stock = newStock }.ToJsonStringContent()
+            );
         }
     }
 

@@ -42,7 +42,7 @@ namespace CloudTrader.Api
             services.AddControllers();
 
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<ITraderApiService, TraderApiService>();
+            services.AddScoped<ITraderApiClient, TraderApiClient>();
 
             services.AddScoped<IRegisterService, RegisterService>();
             services.AddScoped<ILoginService, LoginService>();

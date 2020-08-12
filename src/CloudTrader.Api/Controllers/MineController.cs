@@ -22,10 +22,10 @@ namespace CloudTrader.Api.Controllers
             _mineApiService = mineApiService;
         }
 
-        [HttpPost("stock/{id}")]
+        [HttpGet("stock/{id}")]
         [SwaggerOperation(
-            Summary = "Process purchase request",
-            Description = "Update the current user's balance; update the current user's stock; update the mine's stock")]
+            Summary = "Get stock of a mine",
+            Description = "See how much stock a mine currently has")]
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(int))]
         public async Task<IActionResult> GetStockOfMine(int id)
         {

@@ -1,21 +1,21 @@
 ﻿using CloudTrader.Api.Data;
+using CloudTrader.Api.Service.Services;
 using System.Threading.Tasks;
 
 namespace CloudTrader.Api.Service.Interfaces
 {
-    public interface ITraderApiService
+    public interface ITraderApiClient
     {
         Task<int> CreateTrader();
         Task<TraderResponseModel> GetTrader(int traderId);
+        Task<CloudStockDetail> GetTraderMineStock(int traderId, int mineId);
         Task UpdateTraderMineStockForPurchase(
             int traderId,
-            int mineId,
-            int quantityPurchased
+            SetTraderMineRequestModel newMineData
         );
         Task UpdateTraderBalanceForPurchase(
-            int userId,
             int traderId,
-            int purchaseAmount
+            int newBalance
         );
     }
 }

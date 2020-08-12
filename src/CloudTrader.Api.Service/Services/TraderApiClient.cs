@@ -9,19 +9,12 @@ using System.Threading.Tasks;
 
 namespace CloudTrader.Api.Data
 {
-    public class TraderApiService : ITraderApiService
+    public class TraderApiClient : ITraderApiClient
     {
         // CloudTrader.Trader running options
-        /*private const string traderServiceUrl = "http://localhost:5999/api/trader";*/
+        private const string traderServiceUrl = "http://localhost:5999/api/trader";
         // IIS Express
-        private const string traderServiceUrl = "http://localhost:14663/api/trader";
-
-        private readonly IUserService _userService;
-
-        public TraderApiService(IUserService userService)
-        {
-            _userService = userService;
-        }
+        //private const string traderServiceUrl = "http://localhost:14663/api/trader";
 
         public async Task<int> CreateTrader()
         {
@@ -62,60 +55,47 @@ namespace CloudTrader.Api.Data
         
         public async Task UpdateTraderMineStockForPurchase(
             int traderId, 
-            int mineId, 
-            int quantityPurchased 
+            SetTraderMineRequestModel newMineData 
         )
         {
-            var existingStock = (await GetTraderMineStock(traderId, mineId)).Stock;
-
             using var client = new HttpClient();
-
-            var newMineData = new SetTraderMineRequestModel();
-            newMineData.MineId = mineId;
-            newMineData.Stock = existingStock + quantityPurchased;
 
             await client.PostAsync(
                 $"{traderServiceUrl}/{traderId}/mines",
-                ObjectExtensions.ToJsonStringContent(
-                    new { id = traderId, mine = newMineData })
+                newMineData.ToJsonStringContent()
             );
         }
 
         public async Task UpdateTraderBalanceForPurchase(
-            int userId,
             int traderId,
-            int purchaseAmount)
+            int newBalance
+        )
         {
-            var existingBalance = await _userService.GetBalanceOfUser(userId);
-
-            var newBalance = existingBalance - purchaseAmount;
-
             using var client = new HttpClient();
 
             await client.PutAsync(
                 $"{traderServiceUrl}/{traderId}/balance",
-                ObjectExtensions.ToJsonStringContent(new { Balance = newBalance })
+                new { Balance = newBalance }
+                    .ToJsonStringContent()
             );
         }
     }
 
     public static class ObjectExtensions
     {
-        public static string ToJson(this object foo)
+        public static string ToJson(this object obj)
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(foo);
+            return Newtonsoft.Json.JsonConvert.SerializeObject(obj);
         }
 
-        public static HttpContent ToJsonStringContent(this object foo)
+        public static HttpContent ToJsonStringContent(this object obj)
         {
-            return new StringContent(ToJson(foo), Encoding.UTF8, "application/json");
+            return new StringContent(
+                obj.ToJson(),
+                Encoding.UTF8,
+                "application/json"
+            );
         }
-    }
-
-    public class SetTraderMineRequestModel
-    {
-        public int MineId { get; set; }
-        public int Stock { get; set; }
     }
 
     public class GetTraderMinesResponseModel
