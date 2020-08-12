@@ -33,6 +33,17 @@ namespace CloudTrader.Api.Service.Services
             return _userRepository.GetUser(userId);
         }
 
+        public async Task<int> GetUsersStockForMine(int userId, int mineId)
+        {
+            var user = await GetUser(userId);
+            var userTraderId = user.TraderId;
+
+            return (await _traderApiClient.GetTraderMineStock(
+                userTraderId,
+                mineId)
+            ).Stock;
+        }
+
         public async Task ProcessTransaction(
             int userId, 
             int mineId, 

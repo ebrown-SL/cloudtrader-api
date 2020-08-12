@@ -50,18 +50,18 @@ namespace CloudTrader.Api.Controllers
             return Ok(await _userService.GetBalanceOfUser(userId));
         }
 
-        /*[HttpPost("current/stock/{id}")]
+        [HttpGet("current/stock/{mineId}")]
         [SwaggerOperation(
-            Summary = "Process purchase request",
+            Summary = "Return user's stock of a particular mine",
             Description = "Update the current user's balance; update the current user's stock; update the mine's stock")]
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(int))]
-        public async Task<IActionResult> GetStockOfMine(int id)
+        public async Task<IActionResult> GetStockOfMine(int mineId)
         {
             var userId = int.Parse(User.Identity.Name);
 
-            return Ok(await _mineApiService.GetMineStock(id));
+            return Ok(await _userService.GetUsersStockForMine(userId, mineId));
         }
-*/
+
 
         [HttpPost("current/stock/buy")]
         [SwaggerOperation(
