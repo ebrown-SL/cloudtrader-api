@@ -1,8 +1,6 @@
 ﻿using CloudTrader.Api.Service.Helpers;
 using CloudTrader.Api.Service.Interfaces;
 using CloudTrader.Api.Service.Services;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,10 +9,7 @@ namespace CloudTrader.Api.Data
 {
     public class TraderApiClient : ITraderApiClient
     {
-        // CloudTrader.Trader running options
         private const string traderServiceUrl = "http://localhost:5999/api/trader";
-        // IIS Express
-        //private const string traderServiceUrl = "http://localhost:14663/api/trader";
 
         public async Task<int> CreateTrader()
         {
@@ -79,43 +74,5 @@ namespace CloudTrader.Api.Data
                     .ToJsonStringContent()
             );
         }
-    }
-
-    public static class ObjectExtensions
-    {
-        public static string ToJson(this object obj)
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(obj);
-        }
-
-        public static HttpContent ToJsonStringContent(this object obj)
-        {
-            return new StringContent(
-                obj.ToJson(),
-                Encoding.UTF8,
-                "application/json"
-            );
-        }
-    }
-
-    public class GetTraderMinesResponseModel
-    {
-        public List<CloudStockDetail> CloudStock { get; set; }
-    }
-
-    public class CloudStockDetail
-    {
-        [Key]
-        [Required]
-        public int MineId { get; set; }
-
-        [Required]
-        [Range(0, int.MaxValue)]
-        public int Stock { get; set; }
-    }
-
-    public class SetTraderBalanceRequestModel
-    {
-        public int Balance { get; set; }
     }
 }

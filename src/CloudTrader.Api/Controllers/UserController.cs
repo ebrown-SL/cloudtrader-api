@@ -4,7 +4,6 @@ using CloudTrader.Api.Service.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.AspNetCore.Authorization;
-using CloudTrader.Api.Service.Services;
 using CloudTrader.Api.Service.Models;
 
 namespace CloudTrader.Api.Controllers
@@ -15,15 +14,12 @@ namespace CloudTrader.Api.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
-        private readonly IMineApiService _mineApiService;
 
 
         public UserController(
-            IUserService userService,
-            IMineApiService mineApiService)
+            IUserService userService)
         {
             _userService = userService;
-            _mineApiService = mineApiService;
         }
 
         [HttpGet("current")]
@@ -53,7 +49,7 @@ namespace CloudTrader.Api.Controllers
         [HttpGet("current/stock/{mineId}")]
         [SwaggerOperation(
             Summary = "Return user's stock of a particular mine",
-            Description = "Update the current user's balance; update the current user's stock; update the mine's stock")]
+            Description = "For a given mine id, return the number of stock the uesr has for that mine")]
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(int))]
         public async Task<IActionResult> GetStockOfMine(int mineId)
         {

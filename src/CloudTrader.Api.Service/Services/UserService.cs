@@ -80,12 +80,6 @@ namespace CloudTrader.Api.Service.Services
 
             // Update mine's stock
             await _mineApiService.UpdateMineStock(mineId, quantity);
-
         }
-    }
-    public class SetTraderMineRequestModel
-    {
-        public int MineId { get; set; }
-        public int Stock { get; set; }
     }
 }
