@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudtrader-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloudtrader-api
+  template:
+    metadata:
+      labels:
+        app: cloudtrader-api
+    spec:
+      containers:
+        - name: cloudtrader-api
+          image: cloudtrader.azurecr.io/cloudtrader-api:v1.3.2
+          ports:
+            - containerPort: 80
+          env:
+            - name: TRADER_API_URL
+              value: 'http://cloudtrader-traders'
+            - name: JwtTokenOptions__Key
+              value: '< TOKEN HERE >

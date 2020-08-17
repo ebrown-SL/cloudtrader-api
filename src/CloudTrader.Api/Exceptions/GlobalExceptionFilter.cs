@@ -10,6 +10,9 @@ namespace CloudTrader.Api.Exceptions
         {
             switch (context.Exception)
             {
+                case ApiConnectionError _:
+                    context.Result = new NotFoundResult();
+                    break;
                 case UsernameAlreadyExistsException exception:
                     context.Result = new ConflictObjectResult(exception.Message);
                     break;

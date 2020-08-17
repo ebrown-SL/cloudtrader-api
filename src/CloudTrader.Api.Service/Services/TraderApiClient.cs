@@ -4,26 +4,36 @@ using CloudTrader.Api.Service.Services;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using CloudTrader.Api.Service.Exceptions;
+using System;
 
 namespace CloudTrader.Api.Data
 {
     public class TraderApiClient : ITraderApiClient
     {
-        private const string traderServiceUrl = "http://localhost:5999/api/trader";
+        private readonly string traderServiceUrl = Environment.GetEnvironmentVariable("TRADER_API_URL") + "/api/trader";
+        private readonly int INITIAL_TRADER_BALANCE = 100;
 
         public async Task<int> CreateTrader()
         {
             // Make POST request to the traders API to create new trader
             using var client = new HttpClient();
 
-            var payload = new StringContent("", Encoding.UTF8, "application/json");
+            var payload = new { balance = INITIAL_TRADER_BALANCE }.ToJsonStringContent();
 
-            var response = await client.PostAsync(traderServiceUrl, payload);
+            try
+            {
+                var response = await client.PostAsync(traderServiceUrl, payload);
+                response.EnsureSuccessStatusCode();
+                // Deserialize fetched object into TraderResponseModel format
+                var traderModel = await response.ReadAsJson<TraderResponseModel>();
 
-            // Deserialize fetched object into TraderResponseModel format
-            var traderModel = await response.ReadAsJson<TraderResponseModel>();
-
-            return traderModel.Id;
+                return traderModel.Id;
+            }
+            catch
+            {
+                throw new ApiConnectionError("trader");
+            }
         }
 
         public async Task<TraderResponseModel> GetTrader(int traderId)
