@@ -15,7 +15,6 @@ namespace CloudTrader.Api.Controllers
     {
         private readonly IUserService _userService;
 
-
         public UserController(
             IUserService userService)
         {
@@ -49,7 +48,7 @@ namespace CloudTrader.Api.Controllers
         [HttpGet("current/stock/{mineId}")]
         [SwaggerOperation(
             Summary = "Return user's stock of a particular mine",
-            Description = "For a given mine id, return the number of stock the uesr has for that mine")]
+            Description = "For a given mine id, return the number of stock the user has for that mine")]
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(int))]
         public async Task<IActionResult> GetStockOfMine(int mineId)
         {

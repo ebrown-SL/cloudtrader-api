@@ -21,7 +21,7 @@ namespace CloudTrader.Api.Controllers
             _mineApiService = mineApiService;
         }
 
-        [HttpGet("stock/{id}")]
+        [HttpGet("{id}/stock")]
         [SwaggerOperation(
             Summary = "Get stock of a mine",
             Description = "See how much stock a mine currently has")]
