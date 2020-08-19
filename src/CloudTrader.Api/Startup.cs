@@ -42,7 +42,7 @@ namespace CloudTrader.Api
             services.AddControllers();
 
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<ITraderApiService, TraderApiService>();
+            services.AddScoped<ITraderApiClient, TraderApiClient>();
 
             services.AddScoped<IRegisterService, RegisterService>();
             services.AddScoped<ILoginService, LoginService>();
@@ -51,6 +51,8 @@ namespace CloudTrader.Api
             services.AddSingleton<IPasswordUtils, PasswordUtils>();
 
             services.AddScoped<IUserService, UserService>();
+
+            services.AddScoped<IMineApiService, MineApiService>();
 
             services.AddAuthentication(x =>
             {

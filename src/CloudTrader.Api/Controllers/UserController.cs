@@ -4,6 +4,7 @@ using CloudTrader.Api.Service.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.AspNetCore.Authorization;
+using CloudTrader.Api.Service.Models;
 
 namespace CloudTrader.Api.Controllers
 {
@@ -22,9 +23,9 @@ namespace CloudTrader.Api.Controllers
 
         [HttpGet("current")]
         [SwaggerOperation(
-            Summary = "Get current user's id",
-            Description = "Returns an int of the id of currently logged-in user")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(int))]
+            Summary = "Get current user's details",
+            Description = "Returns a user object containing the details of the currently logged-in user")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(User))]
         public async Task<IActionResult> GetUser()
         {
             var userId = int.Parse(User.Identity.Name);
@@ -42,6 +43,38 @@ namespace CloudTrader.Api.Controllers
             var userId = int.Parse(User.Identity.Name);
 
             return Ok(await _userService.GetBalanceOfUser(userId));
+        }
+
+        [HttpGet("current/stock/{mineId}")]
+        [SwaggerOperation(
+            Summary = "Return user's stock of a particular mine",
+            Description = "For a given mine id, return the number of stock the user has for that mine")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(int))]
+        public async Task<IActionResult> GetStockOfMine(int mineId)
+        {
+            var userId = int.Parse(User.Identity.Name);
+
+            return Ok(await _userService.GetUsersStockForMine(userId, mineId));
+        }
+
+
+        [HttpPost("current/stock/buy")]
+        [SwaggerOperation(
+            Summary = "Process purchase request",
+            Description = "Update the current user's balance; update the current user's stock; update the mine's stock")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(void))]
+        public async Task<IActionResult> ProcessTransaction(PurchaseObject purchaseObject)
+        {
+            var userId = int.Parse(User.Identity.Name);
+
+            await _userService.ProcessTransaction(
+                userId, 
+                purchaseObject.mineId, 
+                purchaseObject.quantity, 
+                purchaseObject.purchaseAmount
+            );
+
+            return Ok();
         }
     }
 }

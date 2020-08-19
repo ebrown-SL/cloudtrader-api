@@ -13,13 +13,13 @@ namespace CloudTrader.Api.Service.Services
 
         private readonly IPasswordUtils _passwordUtils;
 
-        private readonly ITraderApiService _traderApiService;
+        private readonly ITraderApiClient _traderApiService;
 
         public RegisterService(
             IUserRepository userRepository,
             ITokenGenerator tokenGenerator,
             IPasswordUtils passwordUtils,
-            ITraderApiService traderRepository)
+            ITraderApiClient traderRepository)
         {
             _userRepository = userRepository;
             _tokenGenerator = tokenGenerator;

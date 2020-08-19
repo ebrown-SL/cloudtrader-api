@@ -29,7 +29,7 @@ namespace CloudTrader.Api.Service.Helpers
                 {
                     new Claim(ClaimTypes.Name, id.ToString())
                 }),
-                Expires = DateTime.UtcNow.AddMinutes(5),
+                Expires = DateTime.UtcNow.AddMinutes(60),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
