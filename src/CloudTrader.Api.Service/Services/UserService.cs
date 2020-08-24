@@ -1,4 +1,5 @@
-﻿using CloudTrader.Api.Service.Interfaces;
+﻿using CloudTrader.Api.Controllers;
+using CloudTrader.Api.Service.Interfaces;
 using CloudTrader.Api.Service.Models;
 using System.Threading.Tasks;
 
@@ -42,6 +43,14 @@ namespace CloudTrader.Api.Service.Services
                 userTraderId,
                 mineId)
             ).Stock;
+        }
+        
+        public async Task<GetTraderMinesResponseModel> GetAllUserStock(int userId)
+        {
+            var user = await GetUser(userId);
+            var userTraderId = user.TraderId;
+
+            return await _traderApiClient.GetAllTraderStock(userTraderId);
         }
 
         public async Task ProcessTransaction(

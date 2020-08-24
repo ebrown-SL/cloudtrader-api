@@ -1,4 +1,5 @@
-﻿using CloudTrader.Api.Data;
+﻿using CloudTrader.Api.Controllers;
+using CloudTrader.Api.Data;
 using CloudTrader.Api.Service.Services;
 using System.Threading.Tasks;
 
@@ -17,5 +18,6 @@ namespace CloudTrader.Api.Service.Interfaces
             int traderId,
             int newBalance
         );
+        Task<GetTraderMinesResponseModel> GetAllTraderStock(int traderId);
     }
 }

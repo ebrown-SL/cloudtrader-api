@@ -1,4 +1,5 @@
-﻿using CloudTrader.Api.Service.Models;
+﻿using CloudTrader.Api.Controllers;
+using CloudTrader.Api.Service.Models;
 using System.Threading.Tasks;
 
 namespace CloudTrader.Api.Service.Interfaces
@@ -11,6 +12,7 @@ namespace CloudTrader.Api.Service.Interfaces
             int userId, 
             int mineId
         );
+        Task<GetTraderMinesResponseModel> GetAllUserStock(int userId);
         Task ProcessTransaction(
             int userId,
             int mineId,
