@@ -11,14 +11,15 @@ spec:
     metadata:
       labels:
         app: cloudtrader-api
+        aadpodidbinding: azure-pod-identity-binding-selector
     spec:
       containers:
         - name: cloudtrader-api
-          image: cloudtrader.azurecr.io/cloudtrader-api:v1.3.2
+          image: cloudtrader.azurecr.io/cloudtrader-api:v2
           ports:
             - containerPort: 80
           env:
             - name: TRADER_API_URL
               value: 'http://cloudtrader-traders'
             - name: JwtTokenOptions__Key
-              value: '< TOKEN HERE >
+              value: '< TOKEN HERE >'

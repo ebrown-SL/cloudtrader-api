@@ -1,14 +1,15 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using CloudTrader.Api.Service.Models;
 
 namespace CloudTrader.Api.Service.Interfaces
 {
     public interface IUserRepository
     {
-        Task<int> SaveUser(User user);
+        Task<Guid> SaveUser(User user);
 
-        Task<User> GetUser(int id);
+        Task<User> GetUser(Guid id);
 
-        Task<User> GetUser(string username);
+        Task<User> GetUserByName(string username);
     }
 }

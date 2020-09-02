@@ -4,6 +4,7 @@ using CloudTrader.Api.Service.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.AspNetCore.Authorization;
+using System;
 using CloudTrader.Api.Service.Models;
 
 namespace CloudTrader.Api.Controllers
@@ -28,7 +29,7 @@ namespace CloudTrader.Api.Controllers
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(User))]
         public async Task<IActionResult> GetUser()
         {
-            var userId = int.Parse(User.Identity.Name);
+            var userId = Guid.Parse(User.Identity.Name);
 
             return Ok(await _userService.GetUser(userId));
         }
@@ -37,10 +38,10 @@ namespace CloudTrader.Api.Controllers
         [SwaggerOperation(
             Summary = "Get current user's balance",
             Description = "Returns an int of the balance of currently logged-in user")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(int))]
+        [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(Guid))]
         public async Task<IActionResult> GetBalance()
         {
-            var userId = int.Parse(User.Identity.Name);
+            var userId = Guid.Parse(User.Identity.Name);
 
             return Ok(await _userService.GetBalanceOfUser(userId));
         }
@@ -50,9 +51,9 @@ namespace CloudTrader.Api.Controllers
             Summary = "Return user's stock of a particular mine",
             Description = "For a given mine id, return the number of stock the user has for that mine")]
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(int))]
-        public async Task<IActionResult> GetStockOfMine(int mineId)
+        public async Task<IActionResult> GetStockOfMine(Guid mineId)
         {
-            var userId = int.Parse(User.Identity.Name);
+            var userId = Guid.Parse(User.Identity.Name);
 
             return Ok(await _userService.GetUsersStockForMine(userId, mineId));
         }
@@ -64,7 +65,7 @@ namespace CloudTrader.Api.Controllers
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(GetTraderMinesResponseModel))]
         public async Task<IActionResult> GetAllStock()
         {
-            var userId = int.Parse(User.Identity.Name);
+            var userId = Guid.Parse(User.Identity.Name);
 
             return Ok(await _userService.GetAllUserStock(userId));
         }
@@ -77,7 +78,7 @@ namespace CloudTrader.Api.Controllers
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(void))]
         public async Task<IActionResult> ProcessTransaction(PurchaseObject purchaseObject)
         {
-            var userId = int.Parse(User.Identity.Name);
+            var userId = Guid.Parse(User.Identity.Name);
 
             await _userService.ProcessTransaction(
                 userId, 

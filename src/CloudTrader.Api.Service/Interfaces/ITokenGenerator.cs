@@ -1,7 +1,9 @@
-﻿namespace CloudTrader.Api.Service.Interfaces
+﻿using System;
+
+namespace CloudTrader.Api.Service.Interfaces
 {
     public interface ITokenGenerator
     {
-        string GenerateToken(int id);
+        string GenerateToken(Guid id);
     }
 }

@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CloudTrader.Api.Data
 {
     public class UserDbModel
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         public string Username { get; set; }
@@ -17,6 +18,6 @@ namespace CloudTrader.Api.Data
         public byte[] PasswordSalt { get; set; }
 
         [Required]
-        public int TraderId { get; set; }
+        public Guid TraderId { get; set; }
     }
 }
