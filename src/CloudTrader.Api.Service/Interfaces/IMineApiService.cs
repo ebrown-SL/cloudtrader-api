@@ -1,12 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace CloudTrader.Api.Service.Services
 {
     public interface IMineApiService
     {
-        Task<int> GetMineStock(int mineId);
+        Task<int> GetMineStock(Guid mineId);
         Task UpdateMineStock(
-            int mineId,
+            Guid mineId,
             int purchaseQuantity
         );
 

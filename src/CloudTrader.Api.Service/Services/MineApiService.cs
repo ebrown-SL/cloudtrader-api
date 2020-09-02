@@ -1,5 +1,6 @@
 ﻿using CloudTrader.Api.Data;
 using CloudTrader.Api.Service.Helpers;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -9,7 +10,7 @@ namespace CloudTrader.Api.Service.Services
     {
         private const string mineServiceUrl = "http://localhost:1189/api/mine";
 
-        public async Task<int> GetMineStock(int mineId)
+        public async Task<int> GetMineStock(Guid mineId)
         {
             using var client = new HttpClient();
 
@@ -19,7 +20,7 @@ namespace CloudTrader.Api.Service.Services
         }
 
         public async Task UpdateMineStock(
-            int mineId, 
+            Guid mineId, 
             int purchaseQuantity)
         {
             var existingStock = await GetMineStock(mineId);

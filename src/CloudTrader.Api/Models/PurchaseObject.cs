@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CloudTrader.Api.Service.Models
 {
     public class PurchaseObject
     {
         [Required]
-        public int mineId { get; set; }
+        public Guid mineId { get; set; }
 
         [Required]
         public int quantity { get; set; }

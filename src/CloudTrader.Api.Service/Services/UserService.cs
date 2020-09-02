@@ -35,7 +35,7 @@ namespace CloudTrader.Api.Service.Services
             return _userRepository.GetUser(userId);
         }
 
-        public async Task<int> GetUsersStockForMine(int userId, int mineId)
+        public async Task<int> GetUsersStockForMine(Guid userId, Guid mineId)
         {
             var user = await GetUser(userId);
             var userTraderId = user.TraderId;
@@ -46,7 +46,7 @@ namespace CloudTrader.Api.Service.Services
             ).Stock;
         }
         
-        public async Task<GetTraderMinesResponseModel> GetAllUserStock(int userId)
+        public async Task<GetTraderMinesResponseModel> GetAllUserStock(Guid userId)
         {
             var user = await GetUser(userId);
             var userTraderId = user.TraderId;
@@ -55,8 +55,8 @@ namespace CloudTrader.Api.Service.Services
         }
 
         public async Task ProcessTransaction(
-            int userId, 
-            int mineId, 
+            Guid userId, 
+            Guid mineId, 
             int quantity, 
             int purchaseAmount)
         {
