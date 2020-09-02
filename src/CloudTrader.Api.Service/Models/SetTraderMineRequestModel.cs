@@ -1,8 +1,10 @@
-﻿namespace CloudTrader.Api.Service.Services
+﻿using System;
+
+namespace CloudTrader.Api.Service.Services
 {
     public class SetTraderMineRequestModel
     {
-        public int MineId { get; set; }
+        public Guid MineId { get; set; }
         public int Stock { get; set; }
     }
 }

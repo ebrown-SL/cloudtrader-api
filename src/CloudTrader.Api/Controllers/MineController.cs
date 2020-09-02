@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.AspNetCore.Authorization;
 using CloudTrader.Api.Service.Services;
+using System;
 
 namespace CloudTrader.Api.Controllers
 {
@@ -26,7 +27,7 @@ namespace CloudTrader.Api.Controllers
             Summary = "Get stock of a mine",
             Description = "See how much stock a mine currently has")]
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(int))]
-        public async Task<IActionResult> GetStockOfMine(int id)
+        public async Task<IActionResult> GetStockOfMine(Guid id)
         {
             return Ok(await _mineApiService.GetMineStock(id));
         }

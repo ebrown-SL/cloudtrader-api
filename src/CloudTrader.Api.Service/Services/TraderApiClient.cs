@@ -14,7 +14,7 @@ namespace CloudTrader.Api.Data
         private readonly string traderServiceUrl = Environment.GetEnvironmentVariable("TRADER_API_URL") + "/api/trader";
         private readonly int INITIAL_TRADER_BALANCE = 100;
 
-        public async Task<int> CreateTrader()
+        public async Task<Guid> CreateTrader()
         {
             // Make POST request to the traders API to create new trader
             using var client = new HttpClient();
@@ -36,7 +36,7 @@ namespace CloudTrader.Api.Data
             }
         }
 
-        public async Task<TraderResponseModel> GetTrader(int traderId)
+        public async Task<TraderResponseModel> GetTrader(Guid traderId)
         {
             using var client = new HttpClient();
 
@@ -47,7 +47,7 @@ namespace CloudTrader.Api.Data
             return await response.ReadAsJson<TraderResponseModel>();
         }
 
-        public async Task<CloudStockDetail> GetTraderMineStock(int traderId, int mineId)
+        public async Task<CloudStockDetail> GetTraderMineStock(Guid traderId, Guid mineId)
         {
             using var client = new HttpClient();
 
@@ -58,7 +58,7 @@ namespace CloudTrader.Api.Data
             return await response.ReadAsJson<CloudStockDetail>();
         }
 
-        public async Task<GetTraderMinesResponseModel> GetAllTraderStock(int traderId)
+        public async Task<GetTraderMinesResponseModel> GetAllTraderStock(Guid traderId)
         {
             using var client = new HttpClient();
 
@@ -69,7 +69,7 @@ namespace CloudTrader.Api.Data
         }
         
         public async Task UpdateTraderMineStockForPurchase(
-            int traderId, 
+            Guid traderId, 
             SetTraderMineRequestModel newMineData 
         )
         {
@@ -82,7 +82,7 @@ namespace CloudTrader.Api.Data
         }
 
         public async Task UpdateTraderBalanceForPurchase(
-            int traderId,
+            Guid traderId,
             int newBalance
         )
         {
