@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CloudTrader.Api.Service.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace CloudTrader.Api.Service.Services
@@ -10,6 +11,7 @@ namespace CloudTrader.Api.Service.Services
             Guid mineId,
             int purchaseQuantity
         );
+        Task<GetAllMinesResponseModel> GetAllMines();
 
     }
 }
