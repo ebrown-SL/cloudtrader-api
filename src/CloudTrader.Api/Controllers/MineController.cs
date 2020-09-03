@@ -5,6 +5,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.AspNetCore.Authorization;
 using CloudTrader.Api.Service.Services;
 using System;
+using CloudTrader.Api.Service.Models;
 
 namespace CloudTrader.Api.Controllers
 {
@@ -30,6 +31,16 @@ namespace CloudTrader.Api.Controllers
         public async Task<IActionResult> GetStockOfMine(Guid id)
         {
             return Ok(await _mineApiService.GetMineStock(id));
+        }
+
+        [HttpGet]
+        [SwaggerOperation(
+            Summary = "Get all mines",
+            Description = "Returns an object containing an array of mines")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(GetAllMinesResponseModel))]
+        public async Task<IActionResult> GetAllMines()
+        {
+            return Ok(await _mineApiService.GetAllMines());
         }
     }
 }

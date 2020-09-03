@@ -1,5 +1,6 @@
 ﻿using CloudTrader.Api.Data;
 using CloudTrader.Api.Service.Helpers;
+using CloudTrader.Api.Service.Models;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -33,6 +34,17 @@ namespace CloudTrader.Api.Service.Services
                 $"{mineServiceUrl}/{mineId}",
                 new { Stock = newStock }.ToJsonStringContent()
             );
+        }
+
+        public async Task<GetAllMinesResponseModel> GetAllMines()
+        {
+            using var client = new HttpClient();
+
+            var response = await client.GetAsync(
+                $"{mineServiceUrl}"
+            );
+
+            return await response.ReadAsJson<GetAllMinesResponseModel>();
         }
     }
 }
