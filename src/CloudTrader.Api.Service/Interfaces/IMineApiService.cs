@@ -12,6 +12,7 @@ namespace CloudTrader.Api.Service.Services
             int purchaseQuantity
         );
         Task<GetAllMinesResponseModel> GetAllMines();
+        Task<Mine> GetMine(Guid mineId);
 
     }
 }

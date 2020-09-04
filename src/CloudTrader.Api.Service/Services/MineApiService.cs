@@ -46,5 +46,14 @@ namespace CloudTrader.Api.Service.Services
 
             return await response.ReadAsJson<GetAllMinesResponseModel>();
         }
+
+        public async Task<Mine> GetMine(Guid mineId)
+        {
+            using var client = new HttpClient();
+
+            var response = await client.GetAsync($"{mineServiceUrl}/{mineId}");
+
+            return await response.ReadAsJson<Mine>();
+        }
     }
 }
