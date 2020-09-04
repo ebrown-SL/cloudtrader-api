@@ -42,5 +42,15 @@ namespace CloudTrader.Api.Controllers
         {
             return Ok(await _mineApiService.GetAllMines());
         }
+
+        [HttpGet("{id}")]
+        [SwaggerOperation(
+            Summary = "Get details of a mine",
+            Description = "See all details of a mine")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(int))]
+        public async Task<IActionResult> GetMine(Guid id)
+        {
+            return Ok(await _mineApiService.GetMine(id));
+        }
     }
 }
