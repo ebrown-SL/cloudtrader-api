@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CloudTrader.Api.Data
 {
@@ -6,7 +7,7 @@ namespace CloudTrader.Api.Data
     {
         [Key]
         [Required]
-        public int MineId { get; set; }
+        public Guid MineId { get; set; }
 
         [Required]
         [Range(0, int.MaxValue)]
