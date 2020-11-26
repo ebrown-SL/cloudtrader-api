@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
-using CloudTrader.Api.Service.Exceptions;
+﻿using CloudTrader.Api.Service.Exceptions;
 using CloudTrader.Api.Service.Interfaces;
 using CloudTrader.Api.Service.Models;
 using CloudTrader.Api.Service.Services;
 using Moq;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace CloudTrader.Api.Service.Tests.Services
 {
@@ -153,7 +153,7 @@ namespace CloudTrader.Api.Service.Tests.Services
                         )
                     )
                 );
-                
+
                 _mockTraderApiService.Verify(mock =>
                     mock.CreateTrader()
                 );

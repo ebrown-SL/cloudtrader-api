@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using CloudTrader.Api.Models;
+﻿using CloudTrader.Api.Models;
 using CloudTrader.Api.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace CloudTrader.Api.Controllers
 {
@@ -29,7 +29,7 @@ namespace CloudTrader.Api.Controllers
 
         [HttpPost("login")]
         public async Task<ActionResult> Login(Credentials credentials)
-        {         
+        {
             var authDetails = await _loginService.Login(credentials.Username, credentials.Password);
 
             return Ok(authDetails);

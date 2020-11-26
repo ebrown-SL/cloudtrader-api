@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using CloudTrader.Api.Service.Exceptions;
+﻿using CloudTrader.Api.Service.Exceptions;
 using CloudTrader.Api.Service.Interfaces;
 using CloudTrader.Api.Service.Models;
+using System.Threading.Tasks;
 
 namespace CloudTrader.Api.Service.Services
 {

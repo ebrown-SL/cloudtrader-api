@@ -1,8 +1,8 @@
-﻿using System;
+﻿using CloudTrader.Api.Service.Models;
+using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using CloudTrader.Api.Service.Models;
-using NUnit.Framework;
 
 namespace CloudTrader.Api.Service.Tests.Models
 {

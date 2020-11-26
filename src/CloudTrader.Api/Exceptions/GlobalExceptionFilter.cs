@@ -13,12 +13,15 @@ namespace CloudTrader.Api.Exceptions
                 case ApiConnectionError _:
                     context.Result = new NotFoundResult();
                     break;
+
                 case UsernameAlreadyExistsException exception:
                     context.Result = new ConflictObjectResult(exception.Message);
                     break;
+
                 case UnauthorizedException exception:
                     context.Result = new UnauthorizedObjectResult(exception.Message);
                     break;
+
                 default:
                     context.Result = new StatusCodeResult(500);
                     break;

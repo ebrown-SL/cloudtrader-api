@@ -1,6 +1,6 @@
-﻿using System;
+﻿using CloudTrader.Api.Service.Models;
+using System;
 using System.Threading.Tasks;
-using CloudTrader.Api.Service.Models;
 
 namespace CloudTrader.Api.Service.Interfaces
 {

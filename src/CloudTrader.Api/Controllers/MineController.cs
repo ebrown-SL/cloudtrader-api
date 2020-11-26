@@ -1,11 +1,11 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using Swashbuckle.AspNetCore.Annotations;
-using Microsoft.AspNetCore.Authorization;
+﻿using CloudTrader.Api.Service.Models;
 using CloudTrader.Api.Service.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
-using CloudTrader.Api.Service.Models;
+using System.Threading.Tasks;
 
 namespace CloudTrader.Api.Controllers
 {
@@ -15,7 +15,6 @@ namespace CloudTrader.Api.Controllers
     public class MineController : Controller
     {
         private readonly IMineApiService _mineApiService;
-
 
         public MineController(
             IMineApiService mineApiService)

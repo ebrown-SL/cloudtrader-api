@@ -21,7 +21,7 @@ namespace CloudTrader.Api.Service.Services
         }
 
         public async Task UpdateMineStock(
-            Guid mineId, 
+            Guid mineId,
             int purchaseQuantity)
         {
             var existingStock = await GetMineStock(mineId);

@@ -1,5 +1,3 @@
-using System;
-using System.Text;
 using AutoMapper;
 using CloudTrader.Api.Data;
 using CloudTrader.Api.Exceptions;
@@ -15,6 +13,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System;
+using System.Text;
 
 namespace CloudTrader.Api
 {
@@ -112,7 +112,8 @@ namespace CloudTrader.Api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "CloudTrader API");
             });
 
-            app.UseCors(builder => {
+            app.UseCors(builder =>
+            {
                 builder.AllowAnyOrigin();
                 builder.AllowAnyMethod();
                 builder.AllowAnyHeader();

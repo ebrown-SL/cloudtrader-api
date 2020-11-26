@@ -1,5 +1,5 @@
-﻿using System.Text;
-using CloudTrader.Api.Service.Interfaces;
+﻿using CloudTrader.Api.Service.Interfaces;
+using System.Text;
 
 namespace CloudTrader.Api.Service.Helpers
 {

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using CloudTrader.Api.Service.Interfaces;
 using CloudTrader.Api.Service.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading.Tasks;
 
 namespace CloudTrader.Api.Data
 {

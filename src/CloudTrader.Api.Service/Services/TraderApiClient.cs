@@ -1,11 +1,11 @@
-﻿using CloudTrader.Api.Service.Helpers;
+﻿using CloudTrader.Api.Controllers;
+using CloudTrader.Api.Service.Exceptions;
+using CloudTrader.Api.Service.Helpers;
 using CloudTrader.Api.Service.Interfaces;
 using CloudTrader.Api.Service.Services;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using CloudTrader.Api.Service.Exceptions;
-using System;
-using CloudTrader.Api.Controllers;
 
 namespace CloudTrader.Api.Data
 {
@@ -67,10 +67,10 @@ namespace CloudTrader.Api.Data
 
             return await response.ReadAsJson<GetTraderMinesResponseModel>();
         }
-        
+
         public async Task UpdateTraderMineStockForPurchase(
-            Guid traderId, 
-            SetTraderMineRequestModel newMineData 
+            Guid traderId,
+            SetTraderMineRequestModel newMineData
         )
         {
             using var client = new HttpClient();

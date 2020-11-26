@@ -1,11 +1,11 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using CloudTrader.Api.Service.Interfaces;
-using Microsoft.AspNetCore.Http;
-using Swashbuckle.AspNetCore.Annotations;
-using Microsoft.AspNetCore.Authorization;
-using System;
+﻿using CloudTrader.Api.Service.Interfaces;
 using CloudTrader.Api.Service.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
+using System;
+using System.Threading.Tasks;
 
 namespace CloudTrader.Api.Controllers
 {
@@ -70,7 +70,6 @@ namespace CloudTrader.Api.Controllers
             return Ok(await _userService.GetAllUserStock(userId));
         }
 
-
         [HttpPost("current/stock/buy")]
         [SwaggerOperation(
             Summary = "Process purchase request",
@@ -81,9 +80,9 @@ namespace CloudTrader.Api.Controllers
             var userId = Guid.Parse(User.Identity.Name);
 
             await _userService.ProcessTransaction(
-                userId, 
-                purchaseObject.mineId, 
-                purchaseObject.quantity, 
+                userId,
+                purchaseObject.mineId,
+                purchaseObject.quantity,
                 purchaseObject.purchaseAmount
             );
 
