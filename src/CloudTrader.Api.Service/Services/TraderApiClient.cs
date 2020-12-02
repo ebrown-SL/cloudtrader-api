@@ -11,7 +11,7 @@ namespace CloudTrader.Api.Data
 {
     public class TraderApiClient : ITraderApiClient
     {
-        private readonly string traderServiceUrl = Environment.GetEnvironmentVariable("TRADER_API_URL") + "/api/trader";
+        private readonly string traderServiceUrl = Environment.GetEnvironmentVariable("TRADERS_API_URL") + "/api/trader";
         private readonly int INITIAL_TRADER_BALANCE = 100;
 
         public async Task<Guid> CreateTrader()

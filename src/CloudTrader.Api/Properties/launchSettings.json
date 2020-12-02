@@ -5,7 +5,8 @@
       "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "TRADER_API_URL": "http://localhost:5999"
+        "TRADERS_API_URL": "http://localhost:5999",
+        "MINES_API_URL": "http://localhost:1189"
       },
       "applicationUrl": "https://localhost:5001;http://localhost:5000"
     }

@@ -9,7 +9,7 @@ namespace CloudTrader.Api.Service.Services
 {
     public class MineApiService : IMineApiService
     {
-        private const string mineServiceUrl = "http://localhost:1189/api/mine";
+        private readonly string mineServiceUrl = Environment.GetEnvironmentVariable("MINES_API_URL") + "/api/mine";
 
         public async Task<int> GetMineStock(Guid mineId)
         {
