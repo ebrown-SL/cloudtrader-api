@@ -26,5 +26,6 @@
     <ProjectReference Include="..\CloudTrader.Api.Data\CloudTrader.Api.Data.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\CloudTrader.Users.Domain\CloudTrader.Users.Domain.csproj" />
   </ItemGroup>
 </Project>

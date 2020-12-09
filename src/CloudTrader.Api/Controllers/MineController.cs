@@ -1,5 +1,5 @@
-﻿using CloudTrader.Api.Domain.Models;
-using CloudTrader.Api.Domain.Services;
+﻿using CloudTrader.Api.ApiClients;
+using CloudTrader.Api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,12 +14,12 @@ namespace CloudTrader.Api.Controllers
     [Route("[controller]")]
     public class MineController : Controller
     {
-        private readonly IMineApiService _mineApiService;
+        private readonly IMineApiClient mineApiClient;
 
         public MineController(
-            IMineApiService mineApiService)
+            IMineApiClient mineApiService)
         {
-            _mineApiService = mineApiService;
+            mineApiClient = mineApiService;
         }
 
         [HttpGet("{id}/stock")]
@@ -29,7 +29,7 @@ namespace CloudTrader.Api.Controllers
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(int))]
         public async Task<IActionResult> GetStockOfMine(Guid id)
         {
-            return Ok(await _mineApiService.GetMineStock(id));
+            return Ok(await mineApiClient.GetMineStock(id));
         }
 
         [HttpGet]
@@ -39,7 +39,7 @@ namespace CloudTrader.Api.Controllers
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(GetAllMinesResponseModel))]
         public async Task<IActionResult> GetAllMines()
         {
-            return Ok(await _mineApiService.GetAllMines());
+            return Ok(await mineApiClient.GetAllMines());
         }
 
         [HttpGet("{id}")]
@@ -49,7 +49,7 @@ namespace CloudTrader.Api.Controllers
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(int))]
         public async Task<IActionResult> GetMine(Guid id)
         {
-            return Ok(await _mineApiService.GetMine(id));
+            return Ok(await mineApiClient.GetMine(id));
         }
     }
 }

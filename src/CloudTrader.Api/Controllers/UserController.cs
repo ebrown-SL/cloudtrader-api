@@ -1,5 +1,7 @@
-﻿using CloudTrader.Api.Domain.Interfaces;
-using CloudTrader.Api.Domain.Models;
+﻿using CloudTrader.Api.Models;
+using CloudTrader.Users.Domain.Models;
+using CloudTrader.Users.Domain.Models.TraderApiClientModels;
+using CloudTrader.Users.Domain.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,12 +16,12 @@ namespace CloudTrader.Api.Controllers
     [Route("[controller]")]
     public class UserController : Controller
     {
-        private readonly IUserService _userService;
+        private readonly IUserService userService;
 
         public UserController(
             IUserService userService)
         {
-            _userService = userService;
+            this.userService = userService;
         }
 
         [HttpGet("current")]
@@ -31,7 +33,7 @@ namespace CloudTrader.Api.Controllers
         {
             var userId = Guid.Parse(User.Identity.Name);
 
-            return Ok(await _userService.GetUser(userId));
+            return Ok(await userService.GetUser(userId));
         }
 
         [HttpGet("current/balance")]
@@ -43,7 +45,7 @@ namespace CloudTrader.Api.Controllers
         {
             var userId = Guid.Parse(User.Identity.Name);
 
-            return Ok(await _userService.GetBalanceOfUser(userId));
+            return Ok(await userService.GetBalanceOfUser(userId));
         }
 
         [HttpGet("current/stock/{mineId}")]
@@ -55,7 +57,7 @@ namespace CloudTrader.Api.Controllers
         {
             var userId = Guid.Parse(User.Identity.Name);
 
-            return Ok(await _userService.GetUsersStockForMine(userId, mineId));
+            return Ok(await userService.GetUsersStockForMine(userId, mineId));
         }
 
         [HttpGet("current/stock")]
@@ -67,7 +69,7 @@ namespace CloudTrader.Api.Controllers
         {
             var userId = Guid.Parse(User.Identity.Name);
 
-            return Ok(await _userService.GetAllUserStock(userId));
+            return Ok(await userService.GetAllUserStock(userId));
         }
 
         [HttpPost("current/stock/buy")]
@@ -79,7 +81,7 @@ namespace CloudTrader.Api.Controllers
         {
             var userId = Guid.Parse(User.Identity.Name);
 
-            await _userService.ProcessTransaction(
+            await userService.ProcessTransaction(
                 userId,
                 purchaseObject.mineId,
                 purchaseObject.quantity,

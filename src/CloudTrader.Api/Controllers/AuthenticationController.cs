@@ -1,5 +1,5 @@
 ﻿using CloudTrader.Api.Models;
-using CloudTrader.Api.Domain.Interfaces;
+using CloudTrader.Users.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -22,6 +22,7 @@ namespace CloudTrader.Api.Controllers
         [HttpPost("register")]
         public async Task<ActionResult> Register(Credentials credentials)
         {
+            ; // TODO: generate JWT token here
             var authDetails = await _registrationService.Register(credentials.Username, credentials.Password);
 
             return Ok(authDetails);
@@ -30,6 +31,7 @@ namespace CloudTrader.Api.Controllers
         [HttpPost("login")]
         public async Task<ActionResult> Login(Credentials credentials)
         {
+            ; // TODO: generate JWT token here
             var authDetails = await _loginService.Login(credentials.Username, credentials.Password);
 
             return Ok(authDetails);

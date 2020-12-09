@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace CloudTrader.Api.Domain.Models
+namespace CloudTrader.Api.Models
 {
     public class PurchaseObject
     {

@@ -1,7 +1,10 @@
 ﻿using CloudTrader.Api.Domain.Exceptions;
 using CloudTrader.Api.Domain.Interfaces;
-using CloudTrader.Api.Domain.Models;
-using CloudTrader.Api.Domain.Services;
+using CloudTrader.Users.Domain;
+using CloudTrader.Users.Domain.Exceptions;
+using CloudTrader.Users.Domain.Helpers;
+using CloudTrader.Users.Domain.Models;
+using CloudTrader.Users.Domain.Services;
 using Moq;
 using NUnit.Framework;
 using System;
@@ -17,15 +20,13 @@ namespace CloudTrader.Api.Domain.Tests.Services
         public void Register_WithUsernameAlreadyTaken_ThrowsUsernameAlreadyExistsException()
         {
             var mockUserRepository = new Mock<IUserRepository>();
-            var mockTokenGenerator = new Mock<ITokenGenerator>();
             var mockPasswordUtils = new Mock<IPasswordUtils>();
             var registerService = new RegisterService(
                 mockUserRepository.Object,
-                mockTokenGenerator.Object,
                 mockPasswordUtils.Object,
-                new Mock<ITraderApiClient>().Object);
+                new Mock<ITraderApiClientTechDebt>().Object);
 
-            mockUserRepository.Setup(mock => mock.GetUserByName(It.IsAny<string>())).ReturnsAsync(new User());
+            mockUserRepository.Setup(mock => mock.GetUserByUsername(It.IsAny<string>())).ReturnsAsync(new User());
 
             Assert.ThrowsAsync<UsernameAlreadyExistsException>(async () => await registerService.Register("username", "password"));
         }
@@ -34,15 +35,11 @@ namespace CloudTrader.Api.Domain.Tests.Services
         public async Task Register_WithValidUsernameAndPassword_ReturnsValidAuthDetails()
         {
             var mockUserRepository = new Mock<IUserRepository>();
-            var mockTokenGenerator = new Mock<ITokenGenerator>();
             var mockPasswordUtils = new Mock<IPasswordUtils>();
             var registerService = new RegisterService(
                 mockUserRepository.Object,
-                mockTokenGenerator.Object,
                 mockPasswordUtils.Object,
-                new Mock<ITraderApiClient>().Object);
-
-            mockTokenGenerator.Setup(mock => mock.GenerateToken(It.IsAny<Guid>())).Returns("token");
+                new Mock<ITraderApiClientTechDebt>().Object);
 
             var authDetails = await registerService.Register("username", "password");
 
@@ -55,9 +52,8 @@ namespace CloudTrader.Api.Domain.Tests.Services
         public class Register
         {
             private Mock<IUserRepository> _mockUserRepository;
-            private Mock<ITokenGenerator> _mockTokenGenerator;
             private Mock<IPasswordUtils> _mockPasswordUtils;
-            private Mock<ITraderApiClient> _mockTraderApiService;
+            private Mock<ITraderApiClientTechDebt> _mockTraderApiService;
 
             private RegisterService _objectUnderTest;
 
@@ -75,24 +71,18 @@ namespace CloudTrader.Api.Domain.Tests.Services
                     .Setup(mock => mock.SaveUser(It.IsAny<User>()))
                     .Returns(Task.FromResult(dummyTraderId));
 
-                _mockTokenGenerator = new Mock<ITokenGenerator>();
-                _mockTokenGenerator
-                    .Setup(mock => mock.GenerateToken(It.IsAny<Guid>()))
-                    .Returns("token");
-
                 _mockPasswordUtils = new Mock<IPasswordUtils>();
                 _mockPasswordUtils
                     .Setup(mock => mock.CreatePasswordHash(dummyPassword))
                     .Returns((dummyPasswordHash, dummyPasswordSalt));
 
-                _mockTraderApiService = new Mock<ITraderApiClient>();
+                _mockTraderApiService = new Mock<ITraderApiClientTechDebt>();
                 _mockTraderApiService
                     .Setup(mock => mock.CreateTrader())
                     .Returns(Task.FromResult(dummyTraderId));
 
                 _objectUnderTest = new RegisterService(
                     _mockUserRepository.Object,
-                    _mockTokenGenerator.Object,
                     _mockPasswordUtils.Object,
                     _mockTraderApiService.Object);
             }
@@ -111,11 +101,6 @@ namespace CloudTrader.Api.Domain.Tests.Services
                 Assert.That(
                     authDetails.Username,
                     Is.EqualTo("username"));
-
-                Assert.That(
-                    authDetails.Token,
-                    Is.EqualTo("token"),
-                    "Auth token should be the one from the mock token generator");
 
                 _mockUserRepository.Verify(mock =>
                     mock.SaveUser(

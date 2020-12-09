@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CloudTrader.Api.Domain.Models
 {
+    //; // TODO get rid of this if not being used anywhere
+
     public class AuthDetails
     {
         [Required]

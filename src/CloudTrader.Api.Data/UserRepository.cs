@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using CloudTrader.Api.Domain.Interfaces;
-using CloudTrader.Api.Domain.Models;
+using CloudTrader.Users.Domain;
+using CloudTrader.Users.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
@@ -37,7 +37,7 @@ namespace CloudTrader.Api.Data
             return user;
         }
 
-        public async Task<User> GetUserByName(string username)
+        public async Task<User> GetUserByUsername(string username)
         {
             var userDbModel = await _context.Users.SingleOrDefaultAsync(x => x.Username == username);
             var user = _mapper.Map<User>(userDbModel);

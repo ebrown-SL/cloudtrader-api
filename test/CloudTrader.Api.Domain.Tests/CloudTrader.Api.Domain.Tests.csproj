@@ -20,5 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\CloudTrader.Api.Domain\CloudTrader.Api.Domain.csproj" />
+    <ProjectReference Include="..\..\src\CloudTrader.Users.Domain\CloudTrader.Users.Domain.csproj" />
   </ItemGroup>
 </Project>

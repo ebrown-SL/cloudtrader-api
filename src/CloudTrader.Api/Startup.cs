@@ -1,10 +1,8 @@
 using AutoMapper;
 using CloudTrader.Api.Data;
 using CloudTrader.Api.Exceptions;
-using CloudTrader.Api.Domain.Helpers;
 using CloudTrader.Api.Domain.Interfaces;
 using CloudTrader.Api.Domain.Models;
-using CloudTrader.Api.Domain.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -15,6 +13,12 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Text;
+using CloudTrader.Api.ApiClients;
+using CloudTrader.Users.Domain.Services;
+using CloudTrader.Users.Domain;
+using CloudTrader.Users.Domain.Helpers;
+using CloudTrader.Api.Helpers;
+using CloudTrader.Api.Models;
 
 namespace CloudTrader.Api
 {
@@ -45,6 +49,7 @@ namespace CloudTrader.Api
             services.AddDbContext<UserContext>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITraderApiClient, TraderApiClient>();
+            services.AddScoped<ITraderApiClientTechDebt, TraderApiClient>();
 
             services.AddScoped<IRegisterService, RegisterService>();
             services.AddScoped<ILoginService, LoginService>();
@@ -54,7 +59,8 @@ namespace CloudTrader.Api
 
             services.AddScoped<IUserService, UserService>();
 
-            services.AddScoped<IMineApiService, MineApiService>();
+            services.AddScoped<IMineApiClient, MineApiClient>();
+            services.AddScoped<IMineApiClientTechDebt, MineApiClient>();
 
             services.AddAuthentication(x =>
             {
