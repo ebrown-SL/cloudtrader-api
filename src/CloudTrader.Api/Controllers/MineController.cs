@@ -1,5 +1,5 @@
-﻿using CloudTrader.Api.Service.Models;
-using CloudTrader.Api.Service.Services;
+﻿using CloudTrader.Api.Domain.Models;
+using CloudTrader.Api.Domain.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

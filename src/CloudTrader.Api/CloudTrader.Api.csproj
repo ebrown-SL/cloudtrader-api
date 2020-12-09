@@ -20,7 +20,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.5.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CloudTrader.Api.Service\CloudTrader.Api.Service.csproj">
+    <ProjectReference Include="..\CloudTrader.Api.Domain\CloudTrader.Api.Domain.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
     <ProjectReference Include="..\CloudTrader.Api.Data\CloudTrader.Api.Data.csproj">

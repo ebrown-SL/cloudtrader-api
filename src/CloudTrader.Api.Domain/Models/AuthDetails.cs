@@ -3,15 +3,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CloudTrader.Api.Domain.Models
 {
-    public class PurchaseObject
+    public class AuthDetails
     {
         [Required]
-        public Guid mineId { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
-        public int quantity { get; set; }
+        public string Username { get; set; }
 
         [Required]
-        public int purchaseAmount { get; set; }
+        public string Token { get; set; }
     }
 }

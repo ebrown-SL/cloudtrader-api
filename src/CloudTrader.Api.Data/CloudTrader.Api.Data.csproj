@@ -10,6 +10,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Cosmos" Version="3.1.6" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CloudTrader.Api.Service\CloudTrader.Api.Service.csproj" />
+    <ProjectReference Include="..\CloudTrader.Api.Domain\CloudTrader.Api.Domain.csproj" />
   </ItemGroup>
 </Project>

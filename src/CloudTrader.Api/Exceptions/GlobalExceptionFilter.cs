@@ -1,4 +1,4 @@
-﻿using CloudTrader.Api.Service.Exceptions;
+﻿using CloudTrader.Api.Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 

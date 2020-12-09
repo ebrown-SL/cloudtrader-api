@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CloudTrader.Api.Service.Models;
+using CloudTrader.Api.Domain.Models;
 
 namespace CloudTrader.Api.Data
 {

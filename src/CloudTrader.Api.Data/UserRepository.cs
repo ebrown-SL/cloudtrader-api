@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using CloudTrader.Api.Service.Interfaces;
-using CloudTrader.Api.Service.Models;
+using CloudTrader.Api.Domain.Interfaces;
+using CloudTrader.Api.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
