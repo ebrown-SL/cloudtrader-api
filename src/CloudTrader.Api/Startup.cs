@@ -1,5 +1,5 @@
 using AutoMapper;
-using CloudTrader.Api.Data;
+using CloudTrader.Users.Data;
 using CloudTrader.Api.Exceptions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;

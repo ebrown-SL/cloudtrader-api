@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using CloudTrader.Users.Domain.Models;
 
-namespace CloudTrader.Api.Data
+namespace CloudTrader.Users.Data
 {
     public class UserProfile : Profile
     {

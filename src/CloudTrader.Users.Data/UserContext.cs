@@ -1,16 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace CloudTrader.Api.Data
+namespace CloudTrader.Users.Data
 {
     public class UserContext : DbContext
     {
-        private readonly IConfiguration _configuration;
+        private readonly IConfiguration configuration;
 
         public UserContext(DbContextOptions<UserContext> options, IConfiguration configuration)
             : base(options)
         {
-            _configuration = configuration;
+            this.configuration = configuration;
         }
 
         public DbSet<UserDbModel> Users { get; set; }
@@ -19,8 +19,8 @@ namespace CloudTrader.Api.Data
         {
             optionsBuilder
                 .UseCosmos(
-                _configuration["CosmosEndpoint"],
-                _configuration["CosmosKey"],
+                configuration["CosmosEndpoint"],
+                configuration["CosmosKey"],
                 databaseName: "CloudTrader");
         }
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace CloudTrader.Api.Data
+namespace CloudTrader.Users.Data
 {
     public class UserDbModel
     {

@@ -1,4 +1,4 @@
-﻿using CloudTrader.Api.Models;
+﻿using CloudTrader.Api.Auth;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
