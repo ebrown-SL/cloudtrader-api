@@ -25,8 +25,8 @@ namespace CloudTrader.Users.Domain.Services
                 throw new UnauthorizedException("Username or password is incorrect");
             }
 
-            var success = passwordUtils.VerifyPassword(password, user.PasswordHash, user.PasswordSalt);
-            if (!success)
+            var validPassword = passwordUtils.VerifyPassword(password, user.PasswordHash, user.PasswordSalt);
+            if (!validPassword)
             {
                 throw new UnauthorizedException("Username or password is incorrect");
             }

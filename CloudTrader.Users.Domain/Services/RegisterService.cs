@@ -35,13 +35,7 @@ namespace CloudTrader.Users.Domain.Services
 
             var traderId = await traderApiService.CreateTrader();
 
-            var user = new User
-            {
-                Username = username,
-                PasswordHash = passwordHash,
-                PasswordSalt = passwordSalt,
-                TraderId = traderId
-            };
+            var user = new User(username, passwordHash, passwordSalt, traderId);
             ; // TODO - are we not saving this user anywhere?
 
             return user;
