@@ -19,5 +19,26 @@ namespace CloudTrader.Users.Domain.Models
 
         [Required]
         public Guid TraderId { get; set; }
+
+        public User()
+        {
+        }
+
+        public User(string username, byte[] passwordHash, byte[] passwordSalt, Guid traderId)
+        {
+            Username = username;
+            PasswordHash = passwordHash;
+            PasswordSalt = passwordSalt;
+            TraderId = traderId;
+        }
+
+        public User(Guid id, string username, byte[] passwordHash, byte[] passwordSalt, Guid traderId)
+        {
+            Id = id;
+            Username = username;
+            PasswordHash = passwordHash;
+            PasswordSalt = passwordSalt;
+            TraderId = traderId;
+        }
     }
 }
