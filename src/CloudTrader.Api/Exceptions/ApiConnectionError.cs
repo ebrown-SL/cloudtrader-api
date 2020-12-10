@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CloudTrader.Api.Domain.Exceptions
+namespace CloudTrader.Api.Exceptions
 {
     public class ApiConnectionError : Exception
     {
