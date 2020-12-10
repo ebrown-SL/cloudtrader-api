@@ -1,8 +1,6 @@
 using AutoMapper;
 using CloudTrader.Api.Data;
 using CloudTrader.Api.Exceptions;
-using CloudTrader.Api.Domain.Interfaces;
-using CloudTrader.Api.Domain.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,8 +15,7 @@ using CloudTrader.Api.ApiClients;
 using CloudTrader.Users.Domain.Services;
 using CloudTrader.Users.Domain;
 using CloudTrader.Users.Domain.Helpers;
-using CloudTrader.Api.Helpers;
-using CloudTrader.Api.Models;
+using CloudTrader.Api.Auth;
 
 namespace CloudTrader.Api
 {

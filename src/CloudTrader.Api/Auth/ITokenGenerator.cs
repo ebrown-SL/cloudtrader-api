@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CloudTrader.Api.Domain.Interfaces
+namespace CloudTrader.Api.Auth
 {
     public interface ITokenGenerator
     {

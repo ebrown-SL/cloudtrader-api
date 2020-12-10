@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CloudTrader.Api.Models
+namespace CloudTrader.Api.Auth
 {
     public class JwtTokenOptions
     {

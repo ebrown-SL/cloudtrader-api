@@ -1,4 +1,4 @@
-﻿using CloudTrader.Api.Domain.Models;
+﻿using CloudTrader.Api.Models;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -6,14 +6,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CloudTrader.Api.Domain.Tests.Models
 {
-    public class AuthDetailsTests
+    public class LoginSuccessResponseTests
     {
         [TestCase(null)]
         [TestCase("")]
         [TestCase("    ")]
-        public void AuthDetails_WithNoUsername_IsInvalid(string username)
+        public void LoginSuccessResponse_WithNoUsername_IsInvalid(string username)
         {
-            var authDetails = new AuthDetails
+            var authDetails = new LoginSuccessResponse
             {
                 Id = new Guid(),
                 Username = username,
@@ -29,9 +29,9 @@ namespace CloudTrader.Api.Domain.Tests.Models
         [TestCase(null)]
         [TestCase("")]
         [TestCase("    ")]
-        public void AuthDetails_WithNoToken_IsInvalid(string token)
+        public void LoginSuccessResponse_WithNoToken_IsInvalid(string token)
         {
-            var authDetails = new AuthDetails
+            var authDetails = new LoginSuccessResponse
             {
                 Id = new Guid(),
                 Username = "username",
@@ -44,9 +44,9 @@ namespace CloudTrader.Api.Domain.Tests.Models
             Assert.False(isValid);
         }
 
-        public void AuthDetails_WithRequiredFields_IsValid()
+        public void LoginSuccessResponse_WithRequiredFields_IsValid()
         {
-            var authDetails = new AuthDetails
+            var authDetails = new LoginSuccessResponse
             {
                 Id = new Guid(),
                 Username = "username",

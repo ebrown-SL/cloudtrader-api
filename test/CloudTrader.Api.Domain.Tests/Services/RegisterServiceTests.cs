@@ -1,6 +1,4 @@
-﻿using CloudTrader.Api.Domain.Exceptions;
-using CloudTrader.Api.Domain.Interfaces;
-using CloudTrader.Users.Domain;
+﻿using CloudTrader.Users.Domain;
 using CloudTrader.Users.Domain.Exceptions;
 using CloudTrader.Users.Domain.Helpers;
 using CloudTrader.Users.Domain.Models;
