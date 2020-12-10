@@ -2,19 +2,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudTrader.Api", "src\CloudTrader.Api\CloudTrader.Api.csproj", "{BC9C1894-B43C-4612-9A46-FF30D94B6602}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudTrader.Api", "CloudTrader.Api\CloudTrader.Api.csproj", "{BC9C1894-B43C-4612-9A46-FF30D94B6602}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudTrader.Api.Tests", "test\CloudTrader.Api.Tests\CloudTrader.Api.Tests.csproj", "{2F86BC33-FC75-4BE3-95D1-5629BAFF90B9}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{13A9A6CC-B873-4131-9485-3D71BD79EC35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudTrader.Api.Tests", "CloudTrader.Api.Tests\CloudTrader.Api.Tests.csproj", "{2F86BC33-FC75-4BE3-95D1-5629BAFF90B9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{349CCB9E-D16C-4E3A-B5B5-570C6AE5346A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudTrader.Users.Data", "src\CloudTrader.Users.Data\CloudTrader.Users.Data.csproj", "{F1C2A97D-B0D5-4DCC-BEE5-C8F9F79C5345}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudTrader.Users.Data", "CloudTrader.Users.Data\CloudTrader.Users.Data.csproj", "{F1C2A97D-B0D5-4DCC-BEE5-C8F9F79C5345}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudTrader.Api.Domain.Tests", "test\CloudTrader.Api.Domain.Tests\CloudTrader.Api.Domain.Tests.csproj", "{108621D6-FDF4-4BE5-A643-0FFA366231BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudTrader.Users.Domain.Tests", "CloudTrader.Users.Domain.Tests\CloudTrader.Users.Domain.Tests.csproj", "{108621D6-FDF4-4BE5-A643-0FFA366231BB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudTrader.Users.Domain", "src\CloudTrader.Users.Domain\CloudTrader.Users.Domain.csproj", "{1457FC45-8631-4584-8CB2-0F4D84B9D9FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudTrader.Users.Domain", "CloudTrader.Users.Domain\CloudTrader.Users.Domain.csproj", "{1457FC45-8631-4584-8CB2-0F4D84B9D9FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,11 +45,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{BC9C1894-B43C-4612-9A46-FF30D94B6602} = {13A9A6CC-B873-4131-9485-3D71BD79EC35}
 		{2F86BC33-FC75-4BE3-95D1-5629BAFF90B9} = {349CCB9E-D16C-4E3A-B5B5-570C6AE5346A}
-		{F1C2A97D-B0D5-4DCC-BEE5-C8F9F79C5345} = {13A9A6CC-B873-4131-9485-3D71BD79EC35}
 		{108621D6-FDF4-4BE5-A643-0FFA366231BB} = {349CCB9E-D16C-4E3A-B5B5-570C6AE5346A}
-		{1457FC45-8631-4584-8CB2-0F4D84B9D9FE} = {13A9A6CC-B873-4131-9485-3D71BD79EC35}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1E939365-A920-4F26-B5E9-AD5DB4209A2C}
