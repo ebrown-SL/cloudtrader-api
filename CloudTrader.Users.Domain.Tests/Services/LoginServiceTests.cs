@@ -40,21 +40,20 @@ namespace CloudTrader.Api.Domain.Tests.Services
         }
 
         [Test]
-        public async Task Login_WithValidUsernameAndPassword_ReturnsValidAuthDetailsAsync()
+        public async Task Login_WithValidUsernameAndPassword_ReturnsValidUserAsync()
         {
             var mockUserRepository = new Mock<IUserRepository>();
             var mockPasswordUtils = new Mock<IPasswordUtils>();
             var loginService = new LoginService(mockUserRepository.Object, mockPasswordUtils.Object);
+            var mockUserId = new Guid();
+            var mockUsername = "username";
 
-            mockUserRepository.Setup(mock => mock.GetUserByUsername("username")).ReturnsAsync(new User { Id = new Guid(), Username = "username" });
+            mockUserRepository.Setup(mock => mock.GetUserByUsername(mockUsername)).ReturnsAsync(new User { Id = mockUserId, Username = mockUsername });
             mockPasswordUtils.Setup(mock => mock.VerifyPassword(It.IsAny<string>(), It.IsAny<byte[]>(), It.IsAny<byte[]>())).Returns(true);
 
-            var authDetails = await loginService.Login("username", "password");
+            var loginResult = await loginService.Login("username", "password");
 
-            var validationResults = new List<ValidationResult>();
-            var isValid = Validator.TryValidateObject(authDetails, new ValidationContext(authDetails), validationResults, true);
-
-            Assert.True(isValid);
+            Assert.AreEqual(mockUserId, loginResult.Id);
         }
     }
 }
