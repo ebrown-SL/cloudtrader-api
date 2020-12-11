@@ -3,11 +3,11 @@ WORKDIR /app
 
 # Restore solution
 COPY ./CloudTrader.Api.sln ./
-COPY ./src/CloudTrader.Api/CloudTrader.Api.csproj  ./src/CloudTrader.Api/CloudTrader.Api.csproj
-COPY ./src/CloudTrader.Api.Data/CloudTrader.Api.Data.csproj  ./src/CloudTrader.Api.Data/CloudTrader.Api.Data.csproj
-COPY ./src/CloudTrader.Api.Service/CloudTrader.Api.Service.csproj  ./src/CloudTrader.Api.Service/CloudTrader.Api.Service.csproj
-COPY ./test/CloudTrader.Api.Tests/CloudTrader.Api.Tests.csproj  ./test/CloudTrader.Api.Tests/CloudTrader.Api.Tests.csproj
-COPY ./test/CloudTrader.Api.Service.Tests/CloudTrader.Api.Service.Tests.csproj  ./test/CloudTrader.Api.Service.Tests/CloudTrader.Api.Service.Tests.csproj
+COPY ./CloudTrader.Api/CloudTrader.Api.csproj  ./CloudTrader.Api/CloudTrader.Api.csproj
+COPY ./CloudTrader.Users.Data/CloudTrader.Users.Data.csproj  ./CloudTrader.Users.Data/CloudTrader.Users.Data.csproj
+COPY ./CloudTrader.Users.Domain/CloudTrader.Users.Domain.csproj  ./CloudTrader.Users.Domain/CloudTrader.Users.Domain.csproj
+COPY ./CloudTrader.Api.Tests/CloudTrader.Api.Tests.csproj  ./CloudTrader.Api.Tests/CloudTrader.Api.Tests.csproj
+COPY ./CloudTrader.Users.Domain.Tests/CloudTrader.Users.Domain.Tests.csproj  ./CloudTrader.Users.Domain.Tests/CloudTrader.Users.Domain.Tests.csproj
 
 RUN dotnet restore
 
