@@ -10,7 +10,7 @@ namespace CloudTrader.Users.Domain.Tests.Services
     public class UserServiceTests
     {
 #nullable disable
-        private UserService mockUserService;
+        private UserService testUserService;
         private Mock<IUserRepository> mockUserRepository;
 
         private User mockUser;
@@ -30,7 +30,7 @@ namespace CloudTrader.Users.Domain.Tests.Services
             var mockTraderApiClient = new Mock<ITraderApiClientTechDebt>();
             var mockMineApiClient = new Mock<IMineApiClientTechDebt>();
 
-            mockUserService = new UserService(mockUserRepository.Object, mockTraderApiClient.Object, mockMineApiClient.Object);
+            testUserService = new UserService(mockUserRepository.Object, mockTraderApiClient.Object, mockMineApiClient.Object);
             mockUser = new User(mockUserId, mockUsername, mockPasswordHash, mockPasswordSalt, mockTraderId);
         }
 
@@ -41,7 +41,7 @@ namespace CloudTrader.Users.Domain.Tests.Services
                 .Setup(mock => mock.GetUser(mockUserId))
                 .ReturnsAsync(mockUser);
 
-            var result = await mockUserService.GetUser(mockUserId);
+            var result = await testUserService.GetUser(mockUserId);
 
             Assert.AreEqual(mockUser, result);
         }
