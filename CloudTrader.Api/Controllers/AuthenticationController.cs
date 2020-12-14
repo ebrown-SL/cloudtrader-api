@@ -1,7 +1,9 @@
 ﻿using CloudTrader.Api.Auth;
 using CloudTrader.Api.Models;
+using CloudTrader.Users.Domain.Models;
 using CloudTrader.Users.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace CloudTrader.Api.Controllers
@@ -26,18 +28,18 @@ namespace CloudTrader.Api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(Credentials credentials)
         {
-            var user = await registrationService.Register(credentials.Username, credentials.Password);
-            var token = tokenGenerator.GenerateToken(user.Id);
-            var registerSuccess = new LoginSuccessResponse(user.Id, user.Username, token);
+            User user = await registrationService.Register(credentials.Username, credentials.Password);
+            string token = tokenGenerator.GenerateToken(user.Id);
+            LoginSuccessResponse registerSuccess = new LoginSuccessResponse(user.Id, user.Username, token);
             return Ok(registerSuccess);
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(Credentials credentials)
         {
-            var user = await loginService.Login(credentials.Username, credentials.Password);
-            var token = tokenGenerator.GenerateToken(user.Id);
-            var loginSuccess = new LoginSuccessResponse(user.Id, user.Username, token);
+            User user = await loginService.Login(credentials.Username, credentials.Password);
+            string token = tokenGenerator.GenerateToken(user.Id);
+            LoginSuccessResponse loginSuccess = new LoginSuccessResponse(user.Id, user.Username, token);
             return Ok(loginSuccess);
         }
     }
