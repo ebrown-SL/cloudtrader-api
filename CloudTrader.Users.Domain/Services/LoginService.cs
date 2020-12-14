@@ -1,6 +1,7 @@
 ﻿using CloudTrader.Users.Domain.Exceptions;
 using CloudTrader.Users.Domain.Helpers;
 using CloudTrader.Users.Domain.Models;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace CloudTrader.Users.Domain.Services
@@ -19,16 +20,13 @@ namespace CloudTrader.Users.Domain.Services
 
         public async Task<User> Login(string username, string password)
         {
-            var user = await userRepository.GetUserByUsername(username);
-            if (user == null)
+            var user = await userRepository.GetUserByUsername(username).ConfigureAwait(false);
+            var safePasswordHash = user?.PasswordHash ?? Encoding.UTF8.GetBytes("not a real password");
+            var safePasswordSalt = user?.PasswordSalt ?? Encoding.UTF8.GetBytes("not a real salt");
+            bool validPassword = passwordUtils.VerifyPassword(password, safePasswordHash, safePasswordSalt);
+            if (user is null || !validPassword)
             {
-                throw new UnauthorizedException("Username or password is incorrect");
-            }
-
-            var validPassword = passwordUtils.VerifyPassword(password, user.PasswordHash, user.PasswordSalt);
-            if (!validPassword)
-            {
-                throw new UnauthorizedException("Username or password is incorrect");
+                throw new UnauthorizedException("User could not be authenticated");
             }
 
             return user;
