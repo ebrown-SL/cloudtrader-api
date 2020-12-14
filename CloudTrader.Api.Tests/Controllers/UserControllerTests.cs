@@ -12,12 +12,15 @@ namespace CloudTrader.Api.Tests.Controllers
 {
     internal class UserControllerTests
     {
+#nullable disable
         private UserController mockUserController;
         private UserService mockUserService;
 
         private Mock<IUserRepository> mockUserRepository;
 
         private User mockUser;
+
+#nullable restore
 
         private readonly string mockUsername = "test@test.com";
         private readonly Guid mockUserId = new Guid();

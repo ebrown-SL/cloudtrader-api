@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CloudTrader.Api.Models
 {
+#nullable disable
+    // Serialisation of models - this is just a pass through to mines.
+
     public class Mine
     {
         [Key]

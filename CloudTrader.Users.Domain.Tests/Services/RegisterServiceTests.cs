@@ -49,12 +49,13 @@ namespace CloudTrader.Api.Domain.Tests.Services
 
         public class Register
         {
+#nullable disable
             private Mock<IUserRepository> mockUserRepository;
             private Mock<IPasswordUtils> mockPasswordUtils;
             private Mock<ITraderApiClientTechDebt> mockTraderApiService;
 
             private RegisterService objectUnderTest;
-
+#nullable restore
             private const string dummyPassword = "password";
             private readonly byte[] dummyPasswordHash = new byte[] { 1, 2, 3 };
             private readonly byte[] dummyPasswordSalt = new byte[] { 4, 5, 6 };

@@ -31,7 +31,8 @@ namespace CloudTrader.Api.Controllers
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(User))]
         public async Task<IActionResult> GetUser()
         {
-            var userId = Guid.Parse(User.Identity.Name);
+            if (!Guid.TryParse(User.Identity.Name, out Guid userId))
+                return new UnauthorizedResult();
 
             return Ok(await userService.GetUser(userId));
         }
@@ -43,7 +44,8 @@ namespace CloudTrader.Api.Controllers
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(Guid))]
         public async Task<IActionResult> GetBalance()
         {
-            var userId = Guid.Parse(User.Identity.Name);
+            if (!Guid.TryParse(User.Identity.Name, out Guid userId))
+                return new UnauthorizedResult();
 
             return Ok(await userService.GetBalanceOfUser(userId));
         }
@@ -55,7 +57,8 @@ namespace CloudTrader.Api.Controllers
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(int))]
         public async Task<IActionResult> GetStockOfMine(Guid mineId)
         {
-            var userId = Guid.Parse(User.Identity.Name);
+            if (!Guid.TryParse(User.Identity.Name, out Guid userId))
+                return Unauthorized();
 
             return Ok(await userService.GetUsersStockForMine(userId, mineId));
         }
@@ -67,7 +70,8 @@ namespace CloudTrader.Api.Controllers
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(GetTraderMinesResponseModel))]
         public async Task<IActionResult> GetAllStock()
         {
-            var userId = Guid.Parse(User.Identity.Name);
+            if (!Guid.TryParse(User.Identity.Name, out Guid userId))
+                return Unauthorized();
 
             return Ok(await userService.GetAllUserStock(userId));
         }
@@ -79,7 +83,8 @@ namespace CloudTrader.Api.Controllers
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(void))]
         public async Task<IActionResult> ProcessTransaction(PurchaseObject purchaseObject)
         {
-            var userId = Guid.Parse(User.Identity.Name);
+            if (!Guid.TryParse(User.Identity.Name, out Guid userId))
+                return Unauthorized();
 
             await userService.ProcessTransaction(
                 userId,

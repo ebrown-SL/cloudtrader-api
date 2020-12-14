@@ -30,14 +30,14 @@ namespace CloudTrader.Users.Data
             return userDbModel.Id;
         }
 
-        public async Task<User> GetUser(Guid id)
+        public async Task<User?> GetUser(Guid id)
         {
             var userDbModel = await context.Users.SingleOrDefaultAsync(x => x.Id == id);
             var user = mapper.Map<User>(userDbModel);
             return user;
         }
 
-        public async Task<User> GetUserByUsername(string username)
+        public async Task<User?> GetUserByUsername(string username)
         {
             var userDbModel = await context.Users.SingleOrDefaultAsync(x => x.Username == username);
             var user = mapper.Map<User>(userDbModel);

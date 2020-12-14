@@ -21,7 +21,7 @@ namespace CloudTrader.Api.Domain.Tests.Services
             var mockPasswordUtils = new Mock<IPasswordUtils>();
             var loginService = new LoginService(mockUserRepository.Object, mockPasswordUtils.Object);
 
-            mockUserRepository.Setup(mock => mock.GetUser(It.IsAny<Guid>())).ReturnsAsync((User)null);
+            mockUserRepository.Setup(mock => mock.GetUser(It.IsAny<Guid>())).ReturnsAsync((User?)null);
 
             Assert.ThrowsAsync<UnauthorizedException>(async () => await loginService.Login("username", "password"));
         }

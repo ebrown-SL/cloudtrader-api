@@ -6,6 +6,6 @@ namespace CloudTrader.Api.Auth
     {
         [Required]
         [MinLength(16)]
-        public string Key { get; set; }
+        public string Key { get; set; } = "";
     }
 }

@@ -5,9 +5,9 @@ namespace CloudTrader.Api.Models
     public class Credentials
     {
         [Required]
-        public string Username { get; set; }
+        public string? Username { get; set; }
 
         [Required]
-        public string Password { get; set; }
+        public string? Password { get; set; }
     }
 }

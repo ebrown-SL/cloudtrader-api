@@ -69,12 +69,16 @@ namespace CloudTrader.Api
                 {
                     OnTokenValidated = async context =>
                     {
-                        var userId = Guid.Parse(context.Principal.Identity.Name);
-                        var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
-                        var user = await userRepository.GetUser(userId);
-                        if (user == null)
+                        if (!Guid.TryParse(context.Principal.Identity.Name, out Guid userId))
+                            context.Fail(new ArgumentException("User ID was not a valid GUID"));
+                        else
                         {
-                            context.Fail("Unauthorized");
+                            var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
+                            var user = await userRepository.GetUser(userId);
+                            if (user == null)
+                            {
+                                context.Fail("Unauthorized");
+                            }
                         }
                     }
                 };

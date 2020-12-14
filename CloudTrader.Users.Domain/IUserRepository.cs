@@ -8,8 +8,8 @@ namespace CloudTrader.Users.Domain
     {
         Task<Guid> SaveUser(User user);
 
-        Task<User> GetUser(Guid id);
+        Task<User?> GetUser(Guid id);
 
-        Task<User> GetUserByUsername(string username);
+        Task<User?> GetUserByUsername(string username);
     }
 }

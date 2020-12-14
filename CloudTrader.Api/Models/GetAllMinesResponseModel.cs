@@ -6,9 +6,14 @@ namespace CloudTrader.Api.Models
     {
         public List<Mine> Mines { get; set; }
 
+#nullable disable
+
+        // serialisation constructor
         public GetAllMinesResponseModel()
         {
         }
+
+#nullable restore
 
         public GetAllMinesResponseModel(List<Mine> mines)
         {

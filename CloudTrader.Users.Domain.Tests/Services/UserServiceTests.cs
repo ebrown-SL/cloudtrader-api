@@ -9,10 +9,12 @@ namespace CloudTrader.Users.Domain.Tests.Services
 {
     public class UserServiceTests
     {
+#nullable disable
         private UserService mockUserService;
         private Mock<IUserRepository> mockUserRepository;
 
         private User mockUser;
+#nullable restore
 
         private readonly string mockUsername = "test@test.com";
 

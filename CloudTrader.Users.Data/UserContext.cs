@@ -13,7 +13,12 @@ namespace CloudTrader.Users.Data
             this.configuration = configuration;
         }
 
+#nullable disable
+
+        // Entity Framework handles setting up the DbSets
         public DbSet<UserDbModel> Users { get; set; }
+
+#nullable enable
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

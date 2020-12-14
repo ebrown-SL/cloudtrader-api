@@ -14,9 +14,14 @@ namespace CloudTrader.Api.Models
         [Required]
         public string Token { get; set; }
 
+#nullable disable
+
+        // default constructor for serialisation
         public LoginSuccessResponse()
         {
         }
+
+#nullable restore
 
         public LoginSuccessResponse(Guid id, string username, string token)
         {

@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CloudTrader.Users.Data
 {
+#nullable disable
+    // Used as DB model DB logic will handle it not being null
+
     public class UserDbModel
     {
         [Key]
