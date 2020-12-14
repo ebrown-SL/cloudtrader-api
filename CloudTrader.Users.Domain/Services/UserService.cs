@@ -1,4 +1,5 @@
-﻿using CloudTrader.Users.Domain.Models;
+﻿using CloudTrader.Users.Domain.Exceptions;
+using CloudTrader.Users.Domain.Models;
 using CloudTrader.Users.Domain.Models.TraderApiClientModels;
 using System;
 using System.Threading.Tasks;
@@ -29,9 +30,14 @@ namespace CloudTrader.Users.Domain.Services
             return trader.Balance;
         }
 
-        public Task<User> GetUser(Guid userId)
+        public async Task<User> GetUser(Guid userId)
         {
-            return userRepository.GetUser(userId);
+            var user = await userRepository.GetUser(userId);
+
+            if (user == null)
+                throw new NotFoundException("The requested user could not be found");
+
+            return user;
         }
 
         public async Task<int> GetUsersStockForMine(Guid userId, Guid mineId)
