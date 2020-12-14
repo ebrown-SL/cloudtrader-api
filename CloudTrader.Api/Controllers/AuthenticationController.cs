@@ -28,6 +28,9 @@ namespace CloudTrader.Api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(Credentials credentials)
         {
+            if (string.IsNullOrEmpty(credentials.Username) || string.IsNullOrEmpty(credentials.Password))
+                return new BadRequestObjectResult("Username and password are required");
+
             User user = await registrationService.Register(credentials.Username, credentials.Password);
             string token = tokenGenerator.GenerateToken(user.Id);
             LoginSuccessResponse registerSuccess = new LoginSuccessResponse(user.Id, user.Username, token);
@@ -37,6 +40,9 @@ namespace CloudTrader.Api.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(Credentials credentials)
         {
+            if (string.IsNullOrEmpty(credentials.Username) || string.IsNullOrEmpty(credentials.Password))
+                return new BadRequestObjectResult("Username and password are required");
+
             User user = await loginService.Login(credentials.Username, credentials.Password);
             string token = tokenGenerator.GenerateToken(user.Id);
             LoginSuccessResponse loginSuccess = new LoginSuccessResponse(user.Id, user.Username, token);

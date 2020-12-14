@@ -20,9 +20,14 @@ namespace CloudTrader.Users.Domain.Models
         [Required]
         public Guid TraderId { get; set; }
 
+#nullable disable
+        // serialisation constructor
+
         public User()
         {
         }
+
+#nullable restore
 
         public User(string username, byte[] passwordHash, byte[] passwordSalt, Guid traderId)
         {
